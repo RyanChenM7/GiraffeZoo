@@ -10,7 +10,7 @@ For UNIX based systems, run:
 ```export FLASK_APP="backend/main.py"```
 Use `flask run` to boot up the server.
 
-```pip3 install -r requirements.txt```
+```pip3 install -r backend/requirements.txt```
 
 <h2>For the frontend:</h2>
 ```npm install -g npm```
