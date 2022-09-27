@@ -14,4 +14,11 @@ Use `flask run` to boot up the server.
 
 <h2>For the frontend:</h2>
 ```npm install -g npm```
+```node version needs to be v16.17.1```
+```npm version needs to be v8.19.2```
+cd frontend
+run the following command: "npm ci"
+
+
+
 
