@@ -18,6 +18,11 @@ Use `flask run` to boot up the server.
 ```npm version needs to be v8.19.2```
 cd frontend
 run the following command: "npm ci"
+to run the frontend locally you must do the following
+"""
+cd frontend
+npm run
+"""
 
 
 

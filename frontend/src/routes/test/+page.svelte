@@ -13,3 +13,4 @@
 <button on:click={clicked}>
     Clicked {count} times
 </button>
+<div>testing</div>
