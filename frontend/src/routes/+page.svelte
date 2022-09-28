@@ -40,5 +40,5 @@
 {:catch error}
 	<p>An error occurred!</p>
 {/await} -->
-<h1>Ryan gay</h1>
+<h1>Test</h1>
 <p>sheeeesh</p>
