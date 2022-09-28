@@ -1,5 +1,6 @@
-# GiraffeZoo
-A website that helps save wild Giraffes
+# WaterlooRentals
+
+A website that helps students find housing rentals in Waterloo.
 
 <h2>For the backend:</h2>
 To boot up your local development server on Windows, first export the following ENV vars:
