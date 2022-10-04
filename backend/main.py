@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Noodl3s!'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password123'
 app.config['MYSQL_DATABASE_DB'] = 'testDB'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
