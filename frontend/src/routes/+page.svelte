@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Header from '../components/Header.svelte';
+    let testHeaderStuff : string= "test header stuff";
     let count = 0;
     let data_loading = false;
     let data_content = "";
@@ -23,8 +25,11 @@
 <style>
 
 </style>
-
+<section>
+    <h1>section 1</h1>
+</section>
 <!--HTML BELOW-->
+<Header headerStuff = {testHeaderStuff}/>
 <button on:click={clicked}>
     Clicked {count} times, also use this to fetch data
 </button>
