@@ -13,4 +13,4 @@
 <button on:click={clicked}>
     Clicked {count} times
 </button>
-<div>testing login</div>
+<div>Sign up to see your postings</div>
