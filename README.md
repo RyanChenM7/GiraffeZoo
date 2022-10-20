@@ -26,7 +26,7 @@ npm run
 """
 
 <h2>Loading sample data:</h2>
-Data is loaded to MySQL through Flask, so MySQL must be installed as well as all requirements in the given txt file should be satisfied in order to connect to the database. Use XAMPP to run the MySQL server for simplicity. All data will be loaded to a db called "testdb". Navigate to the phpMyAdmin tab to see changes being made.
+Data is loaded to MySQL through Flask, so MySQL must be installed as well as all requirements in the given txt file should be satisfied in order to connect to the database. Use XAMPP to run and view updates in the MySQL server for simplicity. All data will be loaded to a db called "testdb". Navigate to the phpMyAdmin tab to see changes being made.
 
 ![image](https://user-images.githubusercontent.com/77525898/196856753-ea6ab3d3-91e1-437d-b96e-a295f97bcd20.png)
 

@@ -14,7 +14,7 @@ user_schema = {
     "fname": "VARCHAR(100),",
     "lname": "VARCHAR(100),",
     "phone": "VARCHAR(20),",
-    "mail": "VARCHAR(500),",
+    "email": "VARCHAR(500),",
 }
 
 listing_schema = {
@@ -35,6 +35,12 @@ listing_schema = {
     "months": "INT, ",
     "comment": "VARCHAR(2000), ",
 }
+
+def format_user(user):
+    for key in user_schema.keys():
+        if key not in user:
+            user[key] = "N/A"
+    return user
 
 
 class RentalsDB:
@@ -120,12 +126,16 @@ class RentalsDB:
             "email": z,
         }
         """
-
-        user = list(request.values())[0]
+        user = request["user"]
+        email = request["email"]
 
         self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
         if self.cursor.fetchall():
             return 0
+
+        self.cursor.execute(f"SELECT * FROM users WHERE email='{email}'")
+        if self.cursor.fetchall():
+            return -1
 
         self.cursor.execute("SELECT id FROM users ORDER BY id DESC")
         id = int(self.cursor.fetchall()[0][0]) + 1
@@ -164,9 +174,9 @@ class RentalsDB:
         self.cursor.execute("SELECT id FROM listings ORDER BY id DESC")
         id = int(self.cursor.fetchall()[0][0]) + 1
         # ID stores 1 + max(id), so that id's are not duplicated, even when some listings are deleted.
-
-        q = f"INSERT INTO listings VALUES {(id, *request.values())}"
-
+        keys = tuple(request.keys())
+        q = f"INSERT INTO listings ({', '.join(str(x) for x in ['id', *keys])}) VALUES {(id, *request.values())}"
+        print(q)
         self.cursor.execute(q)
         self.conn.commit()
 
@@ -175,7 +185,7 @@ class RentalsDB:
     def delete_listing(self, request):
         """ Schema is:
         {
-            "id": x
+            "id": x,
         }
         """
 
@@ -190,3 +200,17 @@ class RentalsDB:
         self.conn.commit()
 
         return 1
+
+    def login(self, request):
+        """ Schema for request is:
+        {
+            "user_or_email": x,
+            "pass": y
+        }
+        """
+
+        first = request["user_or_email"]
+        pwd = request["pass"]
+
+        res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        return bool(res)
