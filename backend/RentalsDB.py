@@ -73,37 +73,30 @@ class RentalsDB:
         self.cursor.execute(CREATE_USERS)
         self.cursor.execute(CREATE_LISTING)
 
-        # self.cursor.execute("ALTER TABLE users AUTO_INCREMENT=10;")
-        # self.cursor.execute("ALTER TABLE listings AUTO_INCREMENT=10;")
-
         self.conn.commit()
 
     """
     Populates the USERS and LISTINGS tables with default dummy data.
     """
     def populate_database(self):
-        
         # Check if tables are already populated
         self.cursor.execute("SELECT * FROM users")
         res = self.cursor.fetchall()
-        if len(res) == 0: # if unpopulated
+        if not res: # if unpopulated
             with open(PATH + 'sample_users.csv') as csv_file:    
                 csv_users = csv.reader(csv_file, delimiter=',')
                 for row in csv_users:
-                    insert_query = """INSERT INTO users VALUES
-                        ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')""".format(*row)
+                    insert_query = f"INSERT INTO users VALUES {tuple(row)}"
                     self.cursor.execute(insert_query)
 
         select_check = "SELECT * FROM listings"
         self.cursor.execute(select_check)
         res = self.cursor.fetchall()
-        if len(res) == 0:
+        if not res:
             with open(PATH + 'sample_listings.csv') as csv_file:
                 csv_listings = csv.reader(csv_file, delimiter=',')
                 for row in csv_listings:
-                    insert_query = '''INSERT INTO listings VALUES (
-                        "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}", 
-                        "{7}", "{8}", "{9}", "{10}", "{11}", "{12}", "{13}", "{14}", "{15}")'''.format(*row)
+                    insert_query = insert_query = f"INSERT INTO listings VALUES {tuple(row)}"
                     self.cursor.execute(insert_query)
 
         self.conn.commit()
@@ -134,8 +127,9 @@ class RentalsDB:
         if self.cursor.fetchall():
             return 0
 
-        self.cursor.execute("SELECT COUNT(*) as c FROM users")
-        id = int(self.cursor.fetchall()[0][0])
+        self.cursor.execute("SELECT id FROM users ORDER BY id DESC")
+        id = int(self.cursor.fetchall()[0][0]) + 1
+        # ID stores 1 + max(id), so that id's are not duplicated, even when some accs are deleted.
 
         q = f"INSERT INTO users VALUES {(id, *request.values())}"
 
@@ -144,4 +138,55 @@ class RentalsDB:
 
         return 1
 
+    def delete_account(self, request):
+        """ Schema is:
+        {
+            "user": w,
+        }
+        """
 
+        user = list(request.values())[0]
+
+        self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
+        if not self.cursor.fetchall():
+            return 0
+
+        q1 = f"DELETE FROM listings WHERE user_id IN (SELECT id from users WHERE username='{user}')"
+        self.cursor.execute(q1)
+        q2 = f"DELETE FROM users WHERE username='{user}'"
+        self.cursor.execute(q2)
+
+        self.conn.commit()
+
+        return 1
+
+    def create_listing(self, request):
+        self.cursor.execute("SELECT id FROM listings ORDER BY id DESC")
+        id = int(self.cursor.fetchall()[0][0]) + 1
+        # ID stores 1 + max(id), so that id's are not duplicated, even when some listings are deleted.
+
+        q = f"INSERT INTO listings VALUES {(id, *request.values())}"
+
+        self.cursor.execute(q)
+        self.conn.commit()
+
+        return id
+
+    def delete_listing(self, request):
+        """ Schema is:
+        {
+            "id": x
+        }
+        """
+
+        id = list(request.values())[0]
+
+        self.cursor.execute(f"SELECT * FROM listings WHERE id='{id}'")
+        if not self.cursor.fetchall():
+            return 0
+
+        self.cursor.execute(f"DELETE FROM listings WHERE id='{id}'")
+
+        self.conn.commit()
+
+        return 1
