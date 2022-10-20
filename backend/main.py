@@ -112,4 +112,5 @@ def get_Listings():
     cursor =conn.cursor()
     cursor.execute("SELECT * from listings")
     data = cursor.fetchall()
-    return data, 200
+
+    return {"data": data}, 200
