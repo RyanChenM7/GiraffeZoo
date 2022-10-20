@@ -1,6 +1,7 @@
 <script lang='ts'>
     import type {ListingType} from '../types/listing.type';
     export let listing: ListingType;
+    console.log("LIST IS ", listing)
 </script>
 
 <style>
