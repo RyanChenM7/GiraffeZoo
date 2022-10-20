@@ -1,4 +1,4 @@
-export type Listing = {
+export type ListingType = {
     id: number
     user_id: number
     address: string

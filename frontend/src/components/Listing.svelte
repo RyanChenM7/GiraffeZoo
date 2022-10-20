@@ -1,24 +1,6 @@
-<script>
-    /**
-	 * @type {string}
-	 */
-    export let poster;
-    /**
-	 * @type {number}
-	 */
-    export let monthlyRent;
-    /**
-	 * @type {string}
-	 */
-    export let contractLength;
-    /**
-	 * @type {string}
-	 */
-    export let location;
-    /**
-	 * @type {string}
-	 */
-    export let customComment;
+<script lang='ts'>
+    import type {ListingType} from '../types/listing.type';
+    export let listing: ListingType;
 </script>
 
 <style>
@@ -32,9 +14,9 @@
 
 <section>
     <div class="container listing-container">
-        <div class="row">This listing was posted by: {poster}</div>
-        <div class="row">At: ${monthlyRent} a month for {contractLength}</div>
-        <div class="row">Located in: {location}</div>
-        <div class="row">{customComment} - {poster}</div>
+        <div class="row">This listing was posted by: {listing.id}</div>
+        <div class="row">At: ${listing.price} a month for {listing.months}</div>
+        <div class="row">Located in: {listing.address}</div>
+        <div class="row">{listing.comment} - {listing.id}</div>
     </div>
 </section>
