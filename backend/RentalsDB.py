@@ -112,13 +112,7 @@ class RentalsDB:
         self.cursor.execute("SELECT * from listings")
         columns = [column[0] for column in self.cursor.description]
 
-        data = {}
-
-        res = self.cursor.fetchall()
-        for i in range(len(res)):
-            row = res[i]
-            row = dict(zip(columns, row))
-            data[i] = row
+        data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
 
         return data
 
