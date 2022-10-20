@@ -1,116 +1,109 @@
 from re import M
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
-from flaskext.mysql import MySQL
-import csv
+from backend.RentalsDB import RentalsDB
 
 app = Flask(__name__)
 CORS(app)
-mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'testDB'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)
-conn = mysql.connect()
-cursor =conn.cursor()
-
-query_users = ("CREATE TABLE IF NOT EXISTS users("
-            "id INT NOT NULL, "
-            "username VARCHAR(500), "
-            "password VARCHAR(500), "
-            "fname VARCHAR(100), "
-            "lname VARCHAR(100), "
-            "phone VARCHAR(20), "
-            "mail VARCHAR(500), "
-            "PRIMARY KEY (id))"
-)
-query_listing = ("CREATE TABLE IF NOT EXISTS listings("
-            "id INT NOT NULL, "
-            "user_id INT NOT NULL, "
-            "address VARCHAR(1000), "
-            "city VARCHAR(300), "
-            "province VARCHAR(300), "
-            "rooms INT, "
-            "bathrooms INT, "
-            "feet INT, "
-            "heating INT, "
-            "water INT, "
-            "hydro INT, "
-            "type VARCHAR(300), "
-            "parking INT, "
-            "price INT, "
-            "months INT, "
-            "comment VARCHAR(2000), "
-            "PRIMARY KEY (id), "
-            "FOREIGN KEY (user_id) REFERENCES users(id))"
-)
-cursor.execute(query_users)
-cursor.execute(query_listing)
-
-# check if tables are already populated
-select_check = "SELECT * FROM users"
-cursor.execute(select_check)
-res = cursor.fetchall()
-if len(res) == 0: # if unpopulated
-    with open('sample_users.csv') as csv_file:    
-        csv_users = csv.reader(csv_file, delimiter=',')
-        for row in csv_users:
-            insert_query = "INSERT INTO users VALUES \
-                ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(*row)
-            cursor.execute(insert_query)
-
-select_check = "SELECT * FROM listings"
-cursor.execute(select_check)
-res = cursor.fetchall()
-if len(res) == 0:
-    with open('sample_listings.csv') as csv_file:
-        csv_listings = csv.reader(csv_file, delimiter=',')
-        for row in csv_listings:
-            insert_query = 'INSERT INTO listings VALUES (\
-            "{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}", \
-                "{7}", "{8}", "{9}", "{10}", "{11}", "{12}", "{13}", "{14}", "{15}")'.format(*row)
-            cursor.execute(insert_query)
+PATH = "backend/data/"
 
 
-conn.commit()
+db = RentalsDB(app)
+db.initialize_database()
+db.populate_database()
 
 
-# check data
-cursor.execute('SELECT * FROM listings')
-data = cursor.fetchall()
-print("listings rows: ", len(data))
-for row in data:
-    print(row)
+# print(db.get_listings())
 
-cursor.execute('SELECT * FROM users')
-data = cursor.fetchall()
-print("Users rows: ", len(data))
-for row in data:
-    print(row)
+# default_acc = {
+#     "user": "billy", "pass": "bob",
+#     "first": "Billy", "last": "Bob",
+#     "phone": "911",
+#     "email": "billybob@gmail.com"
+# }
+
+# default_acc1 = {
+#     "user": "billy1", "pass": "bob",
+#     "first": "Billy", "last": "Bob",
+#     "phone": "911",
+#     "email": "billybob@gmail.com"
+# }
+
+# db.create_account(default_acc)
+# db.create_account(default_acc1)
+
+# db.delete_account({"user": "test2"})
 
 
-@app.route("/")
-def hello_word():
-    data = { "content": "Hello World", "message": "success"}
-    return data, 200
+# db.create_listing({"user_id": 1, "address": "415 Keats Way"})
+# db.delete_listing({"id": 2})
 
-@app.route("/testsql")
-def get_Data():
-    conn = mysql.connect()
-    cursor =conn.cursor()
+# print(db.login({"user_or_email": "test1", "pass": "password1"}))
+# print(db.login({"user_or_email": "bob@gmail.com", "pass": "password0"}))
+# print(db.login({"user_or_email": "test1", "pass": "password2"}))
+# print(db.login({"user_or_email": "test2", "pass": "password1"}))
 
-    cursor.execute("SELECT * from student")
-    data = cursor.fetchone()
-    print("data", data)
-    data = { "content": data, "message": "success"}
-    return data, 200
-
-@app.route("/fetchListings")
-def get_Listings():
-    conn = mysql.connect()
-    cursor =conn.cursor()
-    cursor.execute("SELECT * from listings")
-    data = cursor.fetchall()
+@app.route("/fetchListings", methods=["GET"])
+def fetchListings():
+    data = db.get_listings()
 
     return {"data": data}, 200
+
+
+@app.route("/createAccount", methods=["POST"])
+def createAccount():
+    req = request.get_json()
+    
+    result = db.create_account(req)
+
+    if result == 0:
+        return {"status": "ERROR", "message": "Username already used!"}, 400
+    if result == -1:
+        return {"status": "ERROR", "message": "Email already used!"}, 400
+    if result == 1:
+        return {"status": "SUCCESS"}, 200
+
+
+@app.route("/deleteAccount", methods=["DELETE"])
+def deleteAccount():
+    req = request.get_json()
+    
+    result = db.delete_account(req)
+
+    if result == 0:
+        return {"status": "ERROR", "message": "Account does not exist!"}, 400
+    else:
+        return {"status": "SUCCESS"}, 200
+
+
+@app.route("/createListing", methods=["POST"])
+def createListing():
+    req = request.get_json()
+    id = db.create_listing(req)
+
+    return {"status": "SUCCESS", "message": f"Created new listing with ID={id}"}, 200
+
+
+@app.route("/deleteListing", methods=["DELETE"])
+def deleteListing():
+    req = request.get_json()
+    res = db.delete_listing(req)
+    if res == 0:
+        return {"status": "ERROR", "message": "Listing does not exist!"}, 400
+    else:
+        return  {"status": "SUCCESS"}, 200
+
+
+@app.route("/login", methods=["DELETE"])
+def login():
+    req = request.get_json()
+    res = db.login(req)
+    
+    if not res:
+        return {"status": "ERROR", "message": "Wrong Login Combination!"}, 400
+    else:
+        return  {"status": "SUCCESS"}, 200
+
+
+if __name__ == '__main__':
+    app.run()
