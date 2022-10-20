@@ -4,9 +4,4 @@
 </script>
 
 <Header headerStuff = {testHeaderStuff}/>
-<nav>
-    <a href="/">Home</a>
-    <a href="/test">About</a>
-    <a href="/login">Settings</a>
-</nav>
 <slot></slot>

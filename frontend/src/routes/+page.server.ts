@@ -1,6 +1,17 @@
 import { error } from '@sveltejs/kit';
+import { BACKEND_HOST } from '$env/static/private';
 
-async function getListings() {
+export async function getListings(pagination: number = 0, pageLimit: number = 50) {
+    let url = BACKEND_HOST + 'fetchListings' + '?pagination=' + pagination + '&pageLimit=' + pageLimit;
+    console.log("url is ", url)
+    // const response = await fetch(url, 
+    //     { mode: 'cors', 
+    //         headers: { 'Access-Control-Allow-Origin':'*'}
+    //     }
+    // )
+    // const data = await response.json().then(data => {
+    //     console.log("data", data)
+    // });
     return { content:[
         {
             poster:  "kebab man",
@@ -31,13 +42,13 @@ async function getListings() {
             customComment:  "this is a test comment"
         }
     ],
-    title: "Test"
+    title: "Listings"
     }
 }
  
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }: any) {
-    const post = await getListings();
+    const post = await getListings(0, 50);
     if (post) {
         return post;
     }
