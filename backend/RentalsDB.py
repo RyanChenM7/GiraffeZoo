@@ -107,7 +107,7 @@ class RentalsDB:
         self.conn.commit()
 
     def get_listings(self):
-        self.cursor.execute("SELECT * FROM listings as l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) as u ON l.user_id = u.id")
+        self.cursor.execute("SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
@@ -121,7 +121,7 @@ class RentalsDB:
         }
         """
         user = request["user"]
-        self.cursor.execute(f"SELECT * FROM listings WHERE user_id='{user}'")
+        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id WHERE l.user_id = '{user}'")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
