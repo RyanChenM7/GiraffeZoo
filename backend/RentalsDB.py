@@ -14,7 +14,7 @@ user_schema = {
     "fname": "VARCHAR(100),",
     "lname": "VARCHAR(100),",
     "phone": "VARCHAR(20),",
-    "mail": "VARCHAR(500),",
+    "email": "VARCHAR(500),",
 }
 
 listing_schema = {
@@ -126,12 +126,16 @@ class RentalsDB:
             "email": z,
         }
         """
-        # request = format_user(request)
-        user = list(request.values())[0]
+        user = request["user"]
+        email = request["email"]
 
         self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
         if self.cursor.fetchall():
             return 0
+
+        self.cursor.execute(f"SELECT * FROM users WHERE email='{email}'")
+        if self.cursor.fetchall():
+            return -1
 
         self.cursor.execute("SELECT id FROM users ORDER BY id DESC")
         id = int(self.cursor.fetchall()[0][0]) + 1
@@ -196,3 +200,17 @@ class RentalsDB:
         self.conn.commit()
 
         return 1
+
+    def login(self, request):
+        """ Schema for request is:
+        {
+            "user_or_email": x,
+            "pass": y
+        }
+        """
+
+        first = request["user_or_email"]
+        pwd = request["pass"]
+
+        res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        return bool(res)
