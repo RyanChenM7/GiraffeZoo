@@ -23,9 +23,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/postings">Manage My Listings</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/postings/create">Install Bitcoin Miner</a>
-            </li>
             <li class="nav-item me-auto">
                 <a class="nav-link me-auto" href="/login">Login</a>
             </li>
