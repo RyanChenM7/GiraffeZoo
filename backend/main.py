@@ -34,7 +34,6 @@ db.populate_database()
 
 # db.delete_account({"user": "test2"})
 
-
 # db.create_listing({"user_id": 1, "address": "415 Keats Way"})
 # db.delete_listing({"id": 2})
 
@@ -42,6 +41,7 @@ db.populate_database()
 # print(db.login({"user_or_email": "bob@gmail.com", "pass": "password0"}))
 # print(db.login({"user_or_email": "test1", "pass": "password2"}))
 # print(db.login({"user_or_email": "test2", "pass": "password1"}))
+# print(db.get_listings())
 
 @app.route("/fetchListings", methods=["GET"])
 def fetchListings():
@@ -103,6 +103,8 @@ def login():
         return {"status": "ERROR", "message": "Wrong Login Combination!"}, 400
     else:
         return  {"status": "SUCCESS"}, 200
+
+
 
 
 if __name__ == '__main__':
