@@ -30,6 +30,8 @@ Data is loaded to MySQL through Flask, so MySQL must be installed as well as all
 
 ![image](https://user-images.githubusercontent.com/77525898/196856753-ea6ab3d3-91e1-437d-b96e-a295f97bcd20.png)
 
-The sample data is currently autoloaded when the backend is run. The data is coming from sample_listings.csv and sample_users.csv where the data is processed and inserted into the tables. Note that there are checks for the tables and data: if the tables already exist, new tables are not created. Similarly if data already exists in the tables, we will not load the sample data in to prevent duplicate rows.
+The sample data is loaded when the Flask Server is booted up. The data come from sample_listings.csv and sample_users.csv and are inserted row by row into the tables. Note that there are checks for the tables and data, if the table is not empty, sample data is not inserted row by row. To reset and reinitialize the tables, a method of the DB class "initialize_database" is called, where data is wiped and the tables can be repopulated with the sample data.
+
+Otherwise, the endpoints `createAccount, deleteAccount, createListing, deleteListing` can be hit with requests to modify the tables.
 
 
