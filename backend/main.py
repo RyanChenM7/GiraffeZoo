@@ -21,7 +21,7 @@ query_users = ("CREATE TABLE IF NOT EXISTS users("
             "password VARCHAR(500), "
             "fname VARCHAR(100), "
             "lname VARCHAR(100), "
-            "phone INT, "
+            "phone VARCHAR(20), "
             "mail VARCHAR(500), "
             "PRIMARY KEY (id))"
 )
