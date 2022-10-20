@@ -14,9 +14,26 @@ export const actions = {
         const password = data.get('password');
         let url = BACKEND_FLASK_HOST + 'login';
         const body = {
-            email : email,
-            password : password
+            user_or_email : email,
+            pass : password
         }
+        const header = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Auth: 'dummyauth'
+        }
+        console.log("body", body)
+        const response = await fetch(url, {   
+                method:'POST',
+                headers: header,
+                body: JSON.stringify(body),
+                mode: 'cors'
+            }
+        )
+        let responseData: any = await response.json().then(data => {
+            console.log("data", data)
+        });
+        return {"message":"done"}
     },
     register: async ( {cookies, request}: any) => {
         const data = await request.formData();
@@ -28,12 +45,6 @@ export const actions = {
         const fname = data.get('fname');
         const lname = data.get('lname');
         let url = BACKEND_FLASK_HOST + 'createAccount';
-        // "user": w,
-        //     "pass": x,
-        //     "first": a,
-        //     "last": b,
-        //     "phone": y,
-        //     "email": z,
         const body: any = {
             email: email,
             pass: password,

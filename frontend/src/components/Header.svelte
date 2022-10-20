@@ -21,13 +21,16 @@
                 <a class="nav-link" href="/">View Listings</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/">Manage My Listings</a>
+                <a class="nav-link" href="/postings">Manage My Listings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/postings/create">Install Bitcoin Miner</a>
             </li>
             <li class="nav-item me-auto">
                 <a class="nav-link me-auto" href="/login">Login</a>
+            </li>
+            <li class="nav-item me-auto">
+                <a class="nav-link me-auto" href="/delete">Delete Account</a>
             </li>
         </ul>
         </div>
