@@ -114,6 +114,20 @@ class RentalsDB:
 
         return data
 
+    def get_listings_by_id(self, request):
+        """Schema is:
+        {
+            "user": w
+        }
+        """
+        user = request["user"]
+        self.cursor.execute(f"SELECT * FROM listings WHERE user_id='{user}'")
+        columns = [column[0] for column in self.cursor.description]
+
+        data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
+
+        return data
+
     def create_account(self, request):
         """ Schema is:
         {
