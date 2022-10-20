@@ -1,8 +1,4 @@
 <script lang="ts">
-    let count = 0;
-    function clicked() {
-        count++;
-    }
 </script>
 
 <style>
