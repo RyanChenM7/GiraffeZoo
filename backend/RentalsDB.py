@@ -6,7 +6,6 @@ mysql = MySQL()
 
 PATH = "backend/data/"
 
-
 user_schema = {
     "id": "INT NOT NULL,",
     "username": "VARCHAR(500),",
@@ -108,7 +107,7 @@ class RentalsDB:
         self.conn.commit()
 
     def get_listings(self):
-        self.cursor.execute("SELECT * from listings")
+        self.cursor.execute("SELECT * FROM listings as l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) as u ON l.user_id = u.id")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
