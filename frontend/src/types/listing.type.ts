@@ -1,5 +1,9 @@
 export type ListingType = {
     id: number
+    fname: string,
+    lname: string,
+    phone: string,
+    email: string,
     user_id: number
     address: string
     city: string
