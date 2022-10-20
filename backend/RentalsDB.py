@@ -225,5 +225,5 @@ class RentalsDB:
         first = request["user_or_email"]
         pwd = request["pass"]
 
-        res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        res = self.cursor.execute(f"SELECT COUNT(*) AS c FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
         return bool(res)
