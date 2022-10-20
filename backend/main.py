@@ -1,8 +1,7 @@
 from re import M
 from flask import Flask, request
-import csv
 from flask_cors import CORS
-from RentalsDB import RentalsDB
+from backend.RentalsDB import RentalsDB
 
 app = Flask(__name__)
 CORS(app)
@@ -62,16 +61,6 @@ def deleteListing():
 
 
 
-# Martin's junk
-# @app.route("/")
-# def hello_word():
-#     data = { "content": "Hello World", "message": "success"}
-#     return data, 200
 
-# @app.route("/testsql")
-# def get_Data():
-#     cursor.execute("SELECT * from student")
-#     data = cursor.fetchone()
-#     print("data", data)
-#     data = { "content": data, "message": "success"}
-#     return data, 200
+if __name__ == '__main__':
+    app.run()
