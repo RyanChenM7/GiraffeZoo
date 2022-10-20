@@ -94,7 +94,7 @@ def deleteListing():
         return  {"status": "SUCCESS"}, 200
 
 
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=["POST"])
 def login():
     req = request.get_json()
     res = db.login(req)
