@@ -13,26 +13,30 @@ db.initialize_database()
 db.populate_database()
 
 
-print(db.get_listings())
+# print(db.get_listings())
 
-default_acc = {
-    "user": "billy", "pass": "bob",
-    "first": "Billy", "last": "Bob",
-    "phone": "911",
-    "email": "billybob@gmail.com"
-}
+# default_acc = {
+#     "user": "billy", "pass": "bob",
+#     "first": "Billy", "last": "Bob",
+#     "phone": "911",
+#     "email": "billybob@gmail.com"
+# }
 
-default_acc1 = {
-    "user": "billy1", "pass": "bob",
-    "first": "Billy", "last": "Bob",
-    "phone": "911",
-    "email": "billybob@gmail.com"
-}
+# default_acc1 = {
+#     "user": "billy1", "pass": "bob",
+#     "first": "Billy", "last": "Bob",
+#     "phone": "911",
+#     "email": "billybob@gmail.com"
+# }
 
-db.create_account(default_acc)
-db.create_account(default_acc1)
+# db.create_account(default_acc)
+# db.create_account(default_acc1)
 
-db.delete_account({"user": "test2"})
+# db.delete_account({"user": "test2"})
+
+
+# db.create_listing({"user_id": 1, "address": "415 Keats Way"})
+# db.delete_listing({"id": 2})
 
 
 @app.route("/fetchListings", methods=["GET"])
@@ -82,7 +86,6 @@ def deleteListing():
         return {"status": "ERROR", "message": "Listing does not exist!"}, 400
     else:
         return  {"status": "SUCCESS"}, 200
-
 
 
 

@@ -36,6 +36,12 @@ listing_schema = {
     "comment": "VARCHAR(2000), ",
 }
 
+def format_user(user):
+    for key in user_schema.keys():
+        if key not in user:
+            user[key] = "N/A"
+    return user
+
 
 class RentalsDB:
     def __init__(self, app, user_schema=user_schema, listing_schema=listing_schema):
@@ -120,7 +126,7 @@ class RentalsDB:
             "email": z,
         }
         """
-
+        # request = format_user(request)
         user = list(request.values())[0]
 
         self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
@@ -164,9 +170,9 @@ class RentalsDB:
         self.cursor.execute("SELECT id FROM listings ORDER BY id DESC")
         id = int(self.cursor.fetchall()[0][0]) + 1
         # ID stores 1 + max(id), so that id's are not duplicated, even when some listings are deleted.
-
-        q = f"INSERT INTO listings VALUES {(id, *request.values())}"
-
+        keys = tuple(request.keys())
+        q = f"INSERT INTO listings ({', '.join(str(x) for x in ['id', *keys])}) VALUES {(id, *request.values())}"
+        print(q)
         self.cursor.execute(q)
         self.conn.commit()
 
@@ -175,7 +181,7 @@ class RentalsDB:
     def delete_listing(self, request):
         """ Schema is:
         {
-            "id": x
+            "id": x,
         }
         """
 
