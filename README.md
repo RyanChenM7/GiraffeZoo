@@ -1,6 +1,15 @@
 # WaterlooRentals
 
 A website that helps students find housing rentals in Waterloo.
+Currently supported features:
+-----------------------------
+Registering an account -> allows you to make a listing
+Logging in -> will allow you to see your own listings as well as deleting them
+Deleting your account -> will remove your account along with all associated listings
+Creating a Listing -> allows users to put a listing up for viewing.
+Deleting your own Listing -> allows the users to take their own listing down.
+Viewing all Listings -> displays a list of all currently existing listings. Displays info such as location, price and length of contract as well as contact info
+-----------------------------
 
 <h2>For the backend:</h2>
 To boot up your local development server on Windows, first export the following ENV vars:
