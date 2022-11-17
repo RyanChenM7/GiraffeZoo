@@ -67,10 +67,10 @@ def createAccount():
         return {"status": "SUCCESS"}, 200
 
 
-@app.route("/deleteAccount", methods=["DELETE"])
+@app.route("/deleteAccount", methods=["POST"])
 def deleteAccount():
     req = request.get_json()
-    
+    print("req: for dlete", req)
     result = db.delete_account(req)
 
     if result == 0:
@@ -87,7 +87,7 @@ def createListing():
     return {"status": "SUCCESS", "message": f"Created new listing with ID={id}"}, 200
 
 
-@app.route("/deleteListing", methods=["DELETE"])
+@app.route("/deleteListing", methods=["POST"])
 def deleteListing():
     req = request.get_json()
     res = db.delete_listing(req)
