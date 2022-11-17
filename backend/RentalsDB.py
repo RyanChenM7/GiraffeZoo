@@ -234,6 +234,6 @@ class RentalsDB:
 
         first = request["user_or_email"]
         pwd = request["pass"]
-
+        exist = self.cursor.execute(f"SELECT * FROM users WHERE username='{first}' OR email='{first}'")
         res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
-        return bool(res)
+        return (bool(exist),bool(res))
