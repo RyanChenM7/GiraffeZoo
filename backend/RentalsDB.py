@@ -112,6 +112,7 @@ class RentalsDB:
                 csv_listings = csv.reader(csv_file, delimiter=',')
                 for row in csv_listings:
                     insert_query = insert_query = f"INSERT INTO listings VALUES {tuple(row)}"
+                    print(row)
                     self.cursor.execute(insert_query)
 
         self.conn.commit()
