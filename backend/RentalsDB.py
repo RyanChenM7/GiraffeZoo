@@ -93,6 +93,11 @@ class RentalsDB:
                 for row in csv_users:
                     insert_query = f"INSERT INTO users VALUES {tuple(row)}"
                     self.cursor.execute(insert_query)
+            with open(PATH + 'production_users.csv') as csv_file:    
+                csv_users = csv.reader(csv_file, delimiter=',')
+                for row in csv_users:
+                    insert_query = f"INSERT INTO users VALUES {tuple(row)}"
+                    self.cursor.execute(insert_query)
 
         select_check = "SELECT * FROM listings"
         self.cursor.execute(select_check)
@@ -102,6 +107,12 @@ class RentalsDB:
                 csv_listings = csv.reader(csv_file, delimiter=',')
                 for row in csv_listings:
                     insert_query = insert_query = f"INSERT INTO listings VALUES {tuple(row)}"
+                    self.cursor.execute(insert_query)
+            with open(PATH + 'production_listings.csv') as csv_file:
+                csv_listings = csv.reader(csv_file, delimiter=',')
+                for row in csv_listings:
+                    insert_query = insert_query = f"INSERT INTO listings VALUES {tuple(row)}"
+                    print(row)
                     self.cursor.execute(insert_query)
 
         self.conn.commit()
@@ -224,6 +235,6 @@ class RentalsDB:
 
         first = request["user_or_email"]
         pwd = request["pass"]
-
-        res = self.cursor.execute(f"SELECT COUNT(*) AS c FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
-        return bool(res)
+        exist = self.cursor.execute(f"SELECT * FROM users WHERE username='{first}' OR email='{first}'")
+        res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        return (bool(exist),bool(res))
