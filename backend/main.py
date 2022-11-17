@@ -1,5 +1,5 @@
 from re import M
-from flask import Flask, request
+from flask import Flask, request, make_response
 from flask_cors import CORS
 from backend.RentalsDB import RentalsDB
 
@@ -103,12 +103,16 @@ def login():
     ret = db.login(req)
     exist = ret[0]
     res = ret[1]
+    user = ret[2]
+
+
     if not exist:
-        return {"status": "ERROR", "message": "Username/Email Doesn't Exist!"}, 400
+        resp = make_response({"status": "ERROR", "message": "Username/Email Doesn't Exist!"}, 400)
     if not res:
-        return {"status": "ERROR", "message": "Wrong Password to Username/Email!"}, 400
+        resp = make_response({"status": "ERROR", "message": "Wrong Password to Username/Email!"}, 400)
     else:
-        return  {"status": "SUCCESS"}, 200
+        resp = make_response({"status": "SUCCESS!", "user": user}, 200)
+    return resp
 
 @app.route("/fetchListingsById", methods=["POST"])
 def fetchListingsById():

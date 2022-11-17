@@ -1,5 +1,17 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
+import type { PageServerLoad } from './$types';
+ 
+export const load: PageServerLoad = async ({ request, locals, cookies }) => {
+    if (!locals.isAuth) {
+        throw redirect(307, '/login');
+    }
+    console.log("locals", locals)
+    const post = await getListings(0, 50, locals.userId); // always get id = 1
+    if (post) {
+        return {content: post, auth: locals};
+    }
+};
 
 export async function getListings(pagination: number = 0, pageLimit: number = 50, id: any) {
     let url = BACKEND_FLASK_HOST + 'fetchListingsById' + '?pagination=' + pagination + '&pageLimit=' + pageLimit;
@@ -23,14 +35,4 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
         return data.data
     });
     return data
-}
- 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ params }: any) {
-    const post = await getListings(0, 50, 1); // always get id = 1
-    if (post) {
-        return {content: post};
-    }
-    
-    throw error(404, 'Not found');
 }

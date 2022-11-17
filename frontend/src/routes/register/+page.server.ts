@@ -1,20 +1,31 @@
-import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
- 
-export const load: PageServerLoad = async ({ request, locals, cookies }) => {
-    if (!locals.isAuth) {
-        throw redirect(307, '/login');
+import { redirect } from '@sveltejs/kit';
+
+export const load: PageServerLoad = async ({ params, locals }) => {
+    if (locals.isAuth) {
+        throw redirect(307, '/');
     }
-};
+}
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    deleteAccount: async ({ cookies, request}: any) => {
+    register: async ( {cookies, request}: any) => {
         const data = await request.formData();
+        
+        const password = data.get('password');
+        const phone = data.get('phone');
+        const email = data.get('email');
         const username = data.get('username');
-        let url = BACKEND_FLASK_HOST + 'deleteAccount';
-        const body = {
+        const fname = data.get('fname');
+        const lname = data.get('lname');
+        let url = BACKEND_FLASK_HOST + 'createAccount';
+        const body: any = {
+            email: email,
+            pass: password,
+            first: fname,
+            last: lname,
+            phone: phone,
             user: username
         }
         const header = {
@@ -22,7 +33,6 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
-        console.log("body", body)
         const response = await fetch(url, {   
                 method:'POST',
                 headers: header,
@@ -33,6 +43,6 @@ export const actions = {
         let responseData: any = await response.json().then(data => {
             console.log("data", data)
         });
-        return {"message":"done"}
+        throw redirect(307, '/');
     }
 };
