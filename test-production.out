@@ -1,0 +1,54 @@
+Empty set (0.0004 sec)
+Empty set (0.0004 sec)
+Query OK, 1 row affected (0.0130 sec)
+Empty set (0.0003 sec)
++----+----------+----------+-------+-------+-------+--------------------+
+| id | username | password | fname | lname | phone | email              |
++----+----------+----------+-------+-------+-------+--------------------+
+| 25 | billy    | bob      | Billy | Bob   | 911   | billybob@gmail.com |
++----+----------+----------+-------+-------+-------+--------------------+
+1 row in set (0.0004 sec)
+Query OK, 1 row affected (0.0110 sec)
+Query OK, 1 row affected (0.0106 sec)
++---+
+| c |
++---+
+| 0 |
++---+
+1 row in set (0.0004 sec)
+Query OK, 1 row affected (0.0110 sec)
+Query OK, 1 row affected (0.0105 sec)
++----+---------+----------------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+-------------------------------------------------------+----+---------+---------+------------+---------------------------+
+| id | user_id | address                    | city     | province | rooms | bathrooms | feet | heating | water | hydro | type        | parking | price | months | comment                                               | id | fname   | lname   | phone      | email                     |
++----+---------+----------------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+-------------------------------------------------------+----+---------+---------+------------+---------------------------+
+|  0 |       0 | 422 Hazel Street           | Waterloo | Ontario  |     1 |         1 |  700 |       1 |     1 |     1 | Apartment   |       1 |  1800 |      4 | Good place to live                                    |  0 | Bob     | Ack     | 6049872509 | bob@gmail.com             |
+|  1 |       1 | 261 Lester Street          | Waterloo | Ontario  |     5 |         2 | 1100 |       1 |     1 |     1 | Shared room |       1 |   495 |      8 | Best for single students                              |  1 | Joe     | Bad     | 5493029283 | joe@gmail.com             |
+|  2 |       1 | 275 Larch Street           | Waterloo | Ontario  |     1 |         1 |  750 |       1 |     1 |     1 | Condo       |       0 |  2000 |      4 | Short-term lease only!                                |  1 | Joe     | Bad     | 5493029283 | joe@gmail.com             |
+|  3 |       1 | 520 Parkside Drive         | Waterloo | Ontario  |     2 |         1 |  900 |       1 |     1 |     0 | Apartment   |       1 |  1800 |     12 | Long-term lease only!                                 |  1 | Joe     | Bad     | 5493029283 | joe@gmail.com             |
+|  5 |       3 | 161 University Avenue East | Waterloo | Ontario  |     2 |         1 |  800 |       1 |     1 |     0 | Condo       |       1 |  1905 |      8 | Close to universities                                 |  3 | Robert  | Li      | 1234567890 | robert@gmail.com          |
+|  6 |       3 | 415 Keats Way              | Waterloo | Ontario  |     2 |         1 |  637 |       1 |     1 |     1 | Apartment   |       0 |  2250 |     12 |                                                       |  3 | Robert  | Li      | 1234567890 | robert@gmail.com          |
+|  7 |       4 | 261 Lester Street          | Waterloo | Ontario  |     4 |         2 | 1226 |       0 |     1 |     1 | Condo       |       1 |  3150 |      4 | Includes heating, water, hi-speed WIFI and undergr... |  4 | Dido    | Hagano  | 2264441896 | dhagano@gmail.com         |
+|  8 |       5 | 271 Lester Street          | Waterloo | Ontario  |     2 |         2 |  751 |       0 |     0 |     1 | Apartment   |       0 |  1495 |     12 | Residents enjoy the many amenities including conve... |  5 | Jadyn   | Candel  | 2264750261 | jcandela@hotmail.com      |
+|  9 |       6 | 1 Columbia St. W           | Waterloo | Ontario  |     1 |         1 |  400 |       1 |     0 |     1 | Condo       |       0 |   770 |      8 | This luxury student community includes a spacious ... |  6 | Antonio | Erika   | 5197657847 | erika_antonio@outlook.com |
+| 10 |       6 | 1 Columbia St. W           | Waterloo | Ontario  |     1 |         1 |  450 |       1 |     0 |     1 | Condo       |       0 |   795 |      8 | This luxury student community includes a spacious ... |  6 | Antonio | Erika   | 5197657847 | erika_antonio@outlook.com |
+| 11 |       7 | 316 King Street North      | Waterloo | Ontario  |     1 |         1 |  300 |       0 |     1 |     1 | Shared room |       1 |   950 |      4 | Amenities Included: Fitness rooms, Games room, Ons... |  7 | Kamil   | Steph   | 6472064708 | StephKamil@gmail.com      |
+| 12 |       8 | 140 Lincoln Road           | Waterloo | Ontario  |     1 |         1 | 1000 |       1 |     0 |     1 | Apartment   |       1 |  1875 |      4 | Well maintained buildings in Waterloo. Within walk... |  8 | Ana     | Sigrid  | 9059761022 | SigridA@hotmail.com       |
+| 13 |       9 | 57 Union Street            | Waterloo | Ontario  |     3 |         1 |  656 |       1 |     1 |     1 | Condo       |       0 |  1650 |      8 | Located near Kitchener-Waterloo Hospital and downt... |  9 | Lucia   | Shel    | 2898471495 | Lucia@gmail.com           |
+| 14 |      10 | 529 Sunnydale Place        | Waterloo | Ontario  |     1 |         2 | 1450 |       1 |     1 |     1 | Apartment   |       0 |  2600 |     16 | This luxurious three-level town-home is located in... | 10 | Fannar  | Ghulam  | 4372037654 | Fannar@gmail.com          |
+| 15 |      11 | 736 Old Albert Street      | Waterloo | Ontario  |     2 |         1 | 1000 |       1 |     1 |     1 | Apartment   |       1 |  1875 |     12 | SPACIOUS ONE AND TWO BEDROOM APARTMENTS               | 11 | Bhavana | Milka   | 5199415346 | Bhavana@gmail.com         |
+| 16 |      11 | 736 Old Albert Street      | Waterloo | Ontario  |     2 |         1 |  546 |       1 |     1 |     1 | Apartment   |       1 |  1600 |     12 | SPACIOUS ONE AND TWO BEDROOM APARTMENTS               | 11 | Bhavana | Milka   | 5199415346 | Bhavana@gmail.com         |
+| 17 |      11 | 736 Old Albert Street      | Waterloo | Ontario  |     2 |         1 |  848 |       1 |     1 |     1 | Apartment   |       0 |  2250 |     12 | SPACIOUS ONE AND TWO BEDROOM APARTMENTS               | 11 | Bhavana | Milka   | 5199415346 | Bhavana@gmail.com         |
+| 18 |      12 | 345 King Street North      | Waterloo | Ontario  |     1 |         1 |  500 |       1 |     1 |     1 | Shared room |       1 |   685 |      4 | Located close to both Laurier University and Unive... | 12 | Plato   | Erranum | 2265571202 | Plato@gmail.com           |
+| 19 |      12 | 346 King Street North      | Waterloo | Ontario  |     1 |         1 |  512 |       1 |     1 |     1 | Shared room |       1 |   710 |      4 | Located close to both Laurier University and Unive... | 12 | Plato   | Erranum | 2265571202 | Plato@gmail.com           |
+| 20 |      13 | 168 King St. North         | Waterloo | Ontario  |     1 |         1 |  432 |       1 |     1 |     1 | Condo       |       1 |   799 |      8 |                                                       | 13 | Torston | Heard   | 5196409346 | Torston@gmail.com         |
++----+---------+----------------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+-------------------------------------------------------+----+---------+---------+------------+---------------------------+
+20 rows in set (0.0008 sec)
++----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
+| id | user_id | address            | city     | province | rooms | bathrooms | feet | heating | water | hydro | type        | parking | price | months | comment                  | id | fname | lname | phone      | email         |
++----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
+|  1 |       1 | 261 Lester Street  | Waterloo | Ontario  |     5 |         2 | 1100 |       1 |     1 |     1 | Shared room |       1 |   495 |      8 | Best for single students |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
+|  2 |       1 | 275 Larch Street   | Waterloo | Ontario  |     1 |         1 |  750 |       1 |     1 |     1 | Condo       |       0 |  2000 |      4 | Short-term lease only!   |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
+|  3 |       1 | 520 Parkside Drive | Waterloo | Ontario  |     2 |         1 |  900 |       1 |     1 |     0 | Apartment   |       1 |  1800 |     12 | Long-term lease only!    |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
++----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
+3 rows in set (0.0005 sec)
+Query OK, 1 row affected (0.0102 sec)

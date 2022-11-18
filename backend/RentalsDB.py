@@ -118,7 +118,7 @@ class RentalsDB:
         self.conn.commit()
 
     def get_listings(self):
-        self.cursor.execute("SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id")
+        self.cursor.execute("SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id LIMIT 20")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
