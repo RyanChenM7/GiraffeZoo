@@ -15,11 +15,10 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
 }
  
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ params }: any) {
+export async function load({ params, locals }: any) {
     const post = await getListings(0, 50);
-    console.log("post", post)
     if (post) {
-        return {content: post};
+        return {content: post, auth: locals};
     }
     
     throw error(404, 'Not found');

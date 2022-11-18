@@ -1,7 +1,7 @@
 <script lang="ts">
     import Header from '../components/Header.svelte';
-    let testHeaderStuff : string= "test header stuff";
+    export let data: any;
 </script>
 
-<Header headerStuff = {testHeaderStuff}/>
+<Header auth = {data.auth}/>
 <slot></slot>

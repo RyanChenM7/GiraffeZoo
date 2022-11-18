@@ -1,3 +1,9 @@
+<script lang="ts">
+    /** @type {import('./$types').PageData} */
+    export let data: any;
+    console.log("DATA IS FOR Postings page " , data)
+</script>
+
 <style>
 .waterloo-rental-input {
     margin: 1rem;

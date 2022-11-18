@@ -1,10 +1,16 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
+import type { PageServerLoad } from './$types';
  
-/** @type {import('./$types').LayoutLoad} */
-export function load() {
-    // do nothing for now
-}
+export const load: PageServerLoad = async ({ request, locals, cookies }) => {
+    if (!locals.isAuth) {
+        throw redirect(307, '/login');
+    }
+    return {
+        auth: locals
+    };
+};
+
 
 /** @type {import('./$types').Actions} */
 export const actions = {

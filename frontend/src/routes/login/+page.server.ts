@@ -1,14 +1,17 @@
 import { error } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
- 
-/** @type {import('./$types').LayoutLoad} */
-export function load() {
-    // do nothing for now
+import type { PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
+
+export const load: PageServerLoad = async ({ params, locals }) => {
+    if (locals.isAuth) {
+        throw redirect(307, '/');
+    }
 }
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    login: async ({ cookies, request}: any) => {
+    login: async ({ cookies, request }: any) => {
         const data = await request.formData();
         const email = data.get('email');
         const password = data.get('password');
@@ -22,52 +25,23 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
+
         const response = await fetch(url, {   
-                method:'POST',
-                headers: header,
-                body: JSON.stringify(body),
-                mode: 'cors'
-            }
-        )
-        let responseData: any = await response.json().then(data => {
-            console.log("data", data)
-        });
-        return {"message":"done"}
-    },
-    register: async ( {cookies, request}: any) => {
-        const data = await request.formData();
-        
-        const password = data.get('password');
-        const phone = data.get('phone');
-        const email = data.get('email');
-        const username = data.get('username');
-        const fname = data.get('fname');
-        const lname = data.get('lname');
-        let url = BACKEND_FLASK_HOST + 'createAccount';
-        const body: any = {
-            email: email,
-            pass: password,
-            first: fname,
-            last: lname,
-            phone: phone,
-            user: username
-        }
-        const header = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Auth: 'dummyauth'
-        }
-        console.log("body", body)
-        const response = await fetch(url, {   
-                method:'POST',
-                headers: header,
-                body: JSON.stringify(body),
-                mode: 'cors'
-            }
-        )
-        let responseData: any = await response.json().then(data => {
-            console.log("data", data)
-        });
-        return {"message":"done"}
+            method:'POST',
+            headers: header,
+            body: JSON.stringify(body),
+            mode: 'cors'
+        })
+        if (response.ok) {
+            let responseData: any = await response.json().then(data => {
+                cookies.set('session', data.user[0], {
+                    path: '/',
+                    httpOnly: true,
+                    sameSite: 'lax',
+                    maxAge: 60 * 60 * 24 * 30
+                });
+            });
+            throw redirect(307, '/');
+        }            
     }
 };
