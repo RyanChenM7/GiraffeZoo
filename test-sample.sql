@@ -11,7 +11,13 @@ DELETE FROM users WHERE username='test2';
 INSERT INTO users VALUES ('2', 'test2', 'password2', 'Steve', 'Pai', '5190981234', 'steve@yahoo.com');
 INSERT INTO listings VALUES ('4', '2', '250 Albert Street', 'Waterloo', 'Ontario', '1', '1', '695', '0', '0', '0', 'Condo', '0', '1800', '4', 'N/A');
 
+SELECT COUNT(*) AS c FROM users WHERE username='test1' OR email='test1';
 SELECT COUNT(*) AS c FROM users WHERE password='pass' AND (username='test1' OR email='test1');
 SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id LIMIT 20;
 SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id WHERE l.user_id = 1 ORDER BY l.id DESC;
-INSERT INTO listings(id, user_id, address) VALUES (26, 1, '415 Keats Way');
+SELECT address FROM listings WHERE address='415 Keats Way' AND user_id='1'
+SELECT id FROM listings WHERE user_id='1' ORDER BY id DESC
+INSERT INTO listings(id, user_id, address) VALUES (6, 1, '415 Keats Way');
+SELECT COUNT(*) FROM listings WHERE id=6 AND user_id=1	
+UPDATE listings SET address='416 Keats Way' WHERE id=6 AND user_id=1
+

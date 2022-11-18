@@ -8,8 +8,14 @@ Empty set (0.0003 sec)
 | 25 | billy    | bob      | Billy | Bob   | 911   | billybob@gmail.com |
 +----+----------+----------+-------+-------+-------+--------------------+
 1 row in set (0.0004 sec)
-Query OK, 1 row affected (0.0110 sec)
-Query OK, 1 row affected (0.0106 sec)
+Query OK, 1 row affected (0.0351 sec)
+Query OK, 1 row affected (0.0306 sec)
++---+
+| c |
++---+
+| 1 |
++---+
+1 row in set (0.0004 sec)
 +---+
 | c |
 +---+
@@ -32,9 +38,23 @@ Query OK, 1 row affected (0.0105 sec)
 +----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
 | id | user_id | address            | city     | province | rooms | bathrooms | feet | heating | water | hydro | type        | parking | price | months | comment                  | id | fname | lname | phone      | email         |
 +----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
-|  1 |       1 | 261 Lester Street  | Waterloo | Ontario  |     5 |         2 | 1100 |       1 |     1 |     1 | Shared room |       1 |   495 |      8 | Best for single students |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
-|  2 |       1 | 275 Larch Street   | Waterloo | Ontario  |     1 |         1 |  750 |       1 |     1 |     1 | Condo       |       0 |  2000 |      4 | Short-term lease only!   |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
 |  3 |       1 | 520 Parkside Drive | Waterloo | Ontario  |     2 |         1 |  900 |       1 |     1 |     0 | Apartment   |       1 |  1800 |     12 | Long-term lease only!    |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
+|  2 |       1 | 275 Larch Street   | Waterloo | Ontario  |     1 |         1 |  750 |       1 |     1 |     1 | Condo       |       0 |  2000 |      4 | Short-term lease only!   |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
+|  1 |       1 | 261 Lester Street  | Waterloo | Ontario  |     5 |         2 | 1100 |       1 |     1 |     1 | Shared room |       1 |   485 |      8 | Best for single students |  1 | Joe   | Bad   | 5493029283 | joe@gmail.com |
 +----+---------+--------------------+----------+----------+-------+-----------+------+---------+-------+-------+-------------+---------+-------+--------+--------------------------+----+-------+-------+------------+---------------+
 3 rows in set (0.0005 sec)
+Empty set (0.0004 sec)
++----+
+| id |
++----+
+|  5 |
++----+
+1 row in set (0.0006 sec)
 Query OK, 1 row affected (0.0102 sec)
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.0006 sec)
+Query OK, 1 row affected (0.0097 sec)
