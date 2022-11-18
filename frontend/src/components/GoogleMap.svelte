@@ -5,8 +5,18 @@
     export let mapId: string;
     console.log("listings Data ", listingsData)
     let map: google.maps.Map;
-    const center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
-
+    const center: google.maps.LatLngLiteral = {lat: 43.48144741242103, lng: -80.52660029564518};
+    const coords = [
+        [43.48144741242103, -80.52660029564518],
+        [43.484147591519125, -80.5351466913817],
+        [43.47426059169504, -80.53551731039134],
+        [43.47676756004974, -80.53132365399857],
+        [43.490383973546216, -80.54483233759558],
+        [43.475107843835794, -80.53236130247639],
+        [43.480691460563406, -80.51290658873488],
+        [43.45724086161414, -80.55647869625912],
+        [43.481488910364824, -80.52661739540584]
+    ]
     onMount(async () => {
         console.log("generating map...")
         map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
@@ -14,10 +24,13 @@
             zoom: 10,
             mapId
         });
-        const marker = new google.maps.Marker({
-            position: center,
-            map: map,
-        });
+        coords.forEach((coord) => {
+            const marker = new google.maps.Marker({
+                position: {lat: coord[0], lng: coord[1]},
+                map: map,
+            });
+        })
+        
         console.log("map generated...", map)
     })
 </script>

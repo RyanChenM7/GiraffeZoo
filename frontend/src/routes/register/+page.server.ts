@@ -2,7 +2,7 @@ import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
+export const load: PageServerLoad = async ({ params, locals }: any) => {
     if (locals.isAuth) {
         throw redirect(307, '/');
     }

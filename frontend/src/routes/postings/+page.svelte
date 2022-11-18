@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-6">
                 <p>My Listings</p>
-                <AllListings listingsData={data.content}/>
+                <AllListings listingsData={data.content} allowEdit={true}/>
             </div>
             <div class="col-6">
                 <div class="row">
