@@ -15,7 +15,7 @@
 <section>
     <div class="container listing-container">
         <div class="row">This listing was posted by: {listing.fname} {listing.lname}</div>
-        <div class="row">At: ${listing.price} a month for {listing.months}</div>
+        <div class="row">At: ${listing.price} a month for {listing.months} months</div>
         <div class="row">Located in: {listing.address}</div>
         <div class="row">For more info contact at: {listing.phone} or {listing.email}</div>
         <div class="row">{listing.comment} - {listing.id}</div>

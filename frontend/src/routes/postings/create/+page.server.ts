@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
  
-export const load: PageServerLoad = async ({ request, locals, cookies }) => {
+export const load: PageServerLoad = async ({ request, locals, cookies }: any) => {
     if (!locals.isAuth) {
         throw redirect(307, '/login');
     }
@@ -14,10 +14,9 @@ export const load: PageServerLoad = async ({ request, locals, cookies }) => {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    createListing: async ({ cookies, request}: any) => {
+    createListing: async ({ cookies, request, locals}: any) => {
         const data = await request.formData();
-        const id = data.get('id');
-        const user_id = data.get('user_id');
+        const user_id = locals.userId;
         const address = data.get('address');
         const city = data.get('city');
         const province = data.get('province');

@@ -24,7 +24,7 @@
 <GoogleMap listingsData={data.content} mapId={mapId}></GoogleMap>
 {/if}
 <!--HTML BELOW-->
-<AllListings listingsData={data.content}/>
+<AllListings listingsData={data.content} allowEdit={false}/>
 
 
 

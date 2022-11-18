@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
  
-export const load: PageServerLoad = async ({ request, locals, cookies }) => {
+export const load: PageServerLoad = async ({ request, locals, cookies }: any) => {
     if (!locals.isAuth) {
         throw redirect(307, '/login');
     }
