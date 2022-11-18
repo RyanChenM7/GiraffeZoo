@@ -100,10 +100,13 @@ def deleteListing():
 @app.route("/login", methods=["POST"])
 def login():
     req = request.get_json()
-    res = db.login(req)
-    
+    ret = db.login(req)
+    exist = ret[0]
+    res = ret[1]
+    if not exist:
+        return {"status": "ERROR", "message": "Username/Email Doesn't Exist!"}, 400
     if not res:
-        return {"status": "ERROR", "message": "Wrong Login Combination!"}, 400
+        return {"status": "ERROR", "message": "Wrong Password to Username/Email!"}, 400
     else:
         return  {"status": "SUCCESS"}, 200
 
