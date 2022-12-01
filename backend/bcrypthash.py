@@ -9,13 +9,18 @@ def hash(password: str) -> str:
     return hashed.decode('utf-8')
 
 def auth(pwd: str, hash: str) -> bool:
-    pwd = pwd.encode('utf-8')
+    bytes = pwd.encode('utf-8')
+
     hash = hash.encode('utf-8')
-    res = bcrypt.checkpw(pwd, hash)
+    res = bcrypt.checkpw(bytes, hash)
     return res
     
 
-print(hash("password0"))
-print(hash("password1"))
-print(hash("password2"))
-print(hash("password3"))
+# print(hash("password0"))
+# print(hash("password1"))
+# print(hash("password2"))
+# print(hash("password3"))
+
+p = "password123"
+print(hash(p))
+print(auth(p, hash(p)))
