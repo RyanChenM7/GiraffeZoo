@@ -1,8 +1,7 @@
 
 import csv
 from flaskext.mysql import MySQL
-import bcrypt
-
+from bcrypthash import hash, auth
 
 mysql = MySQL()
 
@@ -58,6 +57,8 @@ listing_types = {
     "comment": str,
 }
 
+
+@staticmethod
 def format_user(user):
     for key in user_schema.keys():
         if key not in user:
@@ -252,6 +253,7 @@ class RentalsDB:
         """
         user = request["user"]
         email = request["email"]
+        request["pass"] = hash(request["pass"])
 
         self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
         if self.cursor.fetchall():
@@ -341,7 +343,7 @@ class RentalsDB:
             return (0, 0, -1)
 
         pwd = self.cursor.execute(f"SELECT password FROM users WHERE (username='{first}' OR email='{first}')")[0]
-        correct = bcrypt.checkpw(pwd, hash)
+        correct = auth(pwd, hash)
         if not correct:
             return (1, 0, -1)
 
