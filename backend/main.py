@@ -121,7 +121,7 @@ def fetchListingsById():
 
 
 @app.route("/fetchListingByListingId", methods=["POST"])
-def fetchListingsById():
+def fetchListingByListingId():
     req = request.get_json()
     data = db.get_listings_by_listing_id(req)
     return {"data": data}, 200

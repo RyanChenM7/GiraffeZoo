@@ -54,7 +54,6 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
-        console.log("body", body)
         const response = await fetch(url, {   
                 method:'POST',
                 headers: header,

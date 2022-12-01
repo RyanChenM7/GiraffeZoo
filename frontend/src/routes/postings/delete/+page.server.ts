@@ -11,10 +11,8 @@ export const load: PageServerLoad = async ({ request, locals, cookies }: any) =>
 /** @type {import('./$types').Actions} */
 export const actions = {
     deleteListing: async ({ cookies, request}: any) => {
-        console.log("deleteing listing....")
         const data = await request.formData();
         const id = data.get('id');
-        console.log("deleteing listing", id)
         let url = BACKEND_FLASK_HOST + 'deleteListing';
         const body = {
             id: id
@@ -24,7 +22,6 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
-        console.log("body", body)
         const response = await fetch(url, {   
                 method:'POST',
                 headers: header,

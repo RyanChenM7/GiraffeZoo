@@ -152,7 +152,7 @@ class RentalsDB:
         }
         """
         try:
-            id = request["listingid"]
+            id = request["listing_id"]
         except KeyError:
             raise KeyError("Schema for request should be {'listing_id': id}")
 

@@ -18,7 +18,6 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
 export async function load({ params, locals }: any) {
     const post = await getListings(0, 50);
     if (post) {
-        console.log("MAIN FETCH OF DATA:", post)
         return {content: post, auth: locals};
     }
     
