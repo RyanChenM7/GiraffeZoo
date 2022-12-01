@@ -6,7 +6,6 @@ export const load: PageServerLoad = async ({ request, locals, cookies }: any) =>
     if (!locals.isAuth) {
         throw redirect(307, '/login');
     }
-    console.log("locals", locals)
     const post = await getListings(0, 50, locals.userId); // always get id = 1
     if (post) {
         return {content: post, auth: locals};
@@ -34,6 +33,5 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
     let data: any = await response.json().then(data => {
         return data.data
     });
-    console.log("fetched data is: ", data)
     return data
 }

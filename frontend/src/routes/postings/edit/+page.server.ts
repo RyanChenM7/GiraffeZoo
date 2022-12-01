@@ -9,7 +9,6 @@ export const load: PageServerLoad = async ({ request, locals, cookies, params, u
     }
     const post = await getListing(listing_id);
     if (post) {
-        console.log("MAIN FETCH OF DATA:", post)
         return {content: post, auth: locals};
     }
     
@@ -18,14 +17,84 @@ export const load: PageServerLoad = async ({ request, locals, cookies, params, u
 
 export async function getListing(listing_id: string, pagination: number = 0, pageLimit: number = 50) {
     let url = BACKEND_FLASK_HOST + 'fetchListingByListingId' + '?listing_id=' + listing_id + '&pagination=' + pagination + '&pageLimit=' + pageLimit ;
+    const body = {
+        listing_id: listing_id
+    }
+    const header = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Auth: 'dummyauth'
+    }
     const response = await fetch(url, 
         { mode: 'cors', 
-            headers: { 'Access-Control-Allow-Origin':'*'}
+            headers: header,
+            method: 'POST',
+            body: JSON.stringify(body)
         }
     )
     let data: any = await response.json().then(data => {
-        return data.data
+        return data.data[0]
     });
+    console.log("EDIT DATA:", data)
     return data
 }
+
+/** @type {import('./$types').Actions} */
+export const actions = {
+    editListing: async ({ cookies, request, locals}: any) => {
+        const data = await request.formData();
+        const user_id = locals.userId;
+        const id = data.get('id');
+        const address = data.get('address');
+        const city = data.get('city');
+        const province = data.get('province');
+        const rooms = data.get('rooms');
+        const bathrooms = data.get('bathrooms');
+        const feet = data.get('feet');
+        const heating = data.get('heating');
+        const water = data.get('water');
+        const hydro = data.get('hydro');
+        const type = data.get('type');
+        const parking = data.get('parking');
+        const price = data.get('price');
+        const months = data.get('months');
+        const comment = data.get('comment');
+        //let url = BACKEND_FLASK_HOST + 'updateListing';
+        const body = {
+            id: id,
+            user_id: user_id,
+            address: address,
+            city: city,
+            province: province,
+            rooms: rooms,
+            bathrooms: bathrooms,
+            feet: feet,
+            heating: heating,
+            water: water,
+            hydro: hydro,
+            type: type,
+            parking: parking,
+            price: price,
+            months: months,
+            comment: comment
+        }
+        const header = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Auth: 'dummyauth'
+        }
+        console.log("BODY OF EDIT BUTTON", body)
+        // const response = await fetch(url, {   
+        //         method:'POST',
+        //         headers: header,
+        //         body: JSON.stringify(body),
+        //         mode: 'cors'
+        //     }
+        // )
+        // let responseData: any = await response.json().then(data => {
+        //     console.log("data", data)
+        // });
+        return {"message":"done"}
+    }
+};
  

@@ -6,7 +6,6 @@ export const load: PageServerLoad = async ({ request, locals, cookies, params, u
     const listing_id = url.searchParams.get('listing_id');
     const post = await getListing(listing_id);
     if (post) {
-        console.log("MAIN FETCH OF DATA:", post)
         return {content: post, auth: locals};
     }
     
@@ -15,13 +14,23 @@ export const load: PageServerLoad = async ({ request, locals, cookies, params, u
 
 export async function getListing(listing_id: string, pagination: number = 0, pageLimit: number = 50) {
     let url = BACKEND_FLASK_HOST + 'fetchListingByListingId' + '?listing_id=' + listing_id + '&pagination=' + pagination + '&pageLimit=' + pageLimit ;
+    const body = {
+        listing_id: listing_id
+    }
+    const header = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Auth: 'dummyauth'
+    }
     const response = await fetch(url, 
         { mode: 'cors', 
-            headers: { 'Access-Control-Allow-Origin':'*'}
+            headers: header,
+            method: 'POST',
+            body: JSON.stringify(body)
         }
     )
     let data: any = await response.json().then(data => {
-        return data.data
+        return data.data[0]
     });
     return data
 }
