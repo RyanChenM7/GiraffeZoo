@@ -9,8 +9,8 @@ PATH = "backend/data/"
 
 
 db = RentalsDB(app)
-#db.initialize_database()
-#db.populate_database()
+db.initialize_database()
+db.populate_database()
 
 
 # print(db.get_listings())
