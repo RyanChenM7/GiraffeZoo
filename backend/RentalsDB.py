@@ -186,22 +186,22 @@ class RentalsDB:
     def modify_listing(self, request):
         """Schema is:
         listing_schema = {
-            "id": "INT NOT NULL, ",
-            "user_id": "INT NOT NULL, ",
-            "address": "VARCHAR(1000) NOT NULL, ",
-            "city": "VARCHAR(300), ",
-            "province": "VARCHAR(300), ",
-            "rooms": "INT, ",
-            "bathrooms": "INT, ",
-            "feet": "INT, ",
-            "heating": "INT, ",
-            "water": "INT, ",
-            "hydro": "INT, ",
-            "type": "VARCHAR(300), ",
-            "parking": "INT, ",
-            "price": "INT, ",
-            "months": "INT, ",
-            "comment": "VARCHAR(2000), "
+            "id": int,
+            "user_id": int,
+            "address": str,
+            "city": str,
+            "province": str,
+            "rooms": int,
+            "bathrooms": int,
+            "feet": int,
+            "heating": int,
+            "water": int,
+            "hydro": int,
+            "type": str,
+            "parking": int,
+            "price": int,
+            "months": int,
+            "comment": str,
         }
         """
         print("request", request)
@@ -264,8 +264,8 @@ class RentalsDB:
             return -1
 
         self.cursor.execute("SELECT id FROM users ORDER BY id DESC")
+        # ID stores 1 + max(id), so that id's are not duplicated, even if accounts were deleted.
         id = int(self.cursor.fetchall()[0][0]) + 1
-        # ID stores 1 + max(id), so that id's are not duplicated, even when some accs are deleted.
 
         q = f"INSERT INTO users VALUES {(id, *request.values())}"
 
@@ -348,7 +348,6 @@ class RentalsDB:
         if not correct:
             return (1, 0, -1)
 
-        self.cursor.execute(f"SELECT id FROM users WHERE (username='{first}' OR email='{first}')")
+        self.cursor.execute(f"SELECT id FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
         user = self.cursor.fetchone()
-        print("user", user)
         return (1, 1, user)
