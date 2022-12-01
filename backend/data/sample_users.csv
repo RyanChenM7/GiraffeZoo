@@ -1,4 +1,4 @@
-0,test0,$2b$10$WjpxMvrQwJUvFNKcWZ1LMOfbtD15mFWegmtzhEwzG/YthBeW5AD4q,Bob,Ack,6049872509,bob@gmail.com
-1,test1,$2b$10$cBzg4RYwUGvoa4LvmgzuTuyxHGVYJo8Pc8PG65osgvFU05ev/hN4y,Joe,Bad,5493029283,joe@gmail.com
-2,test2,$2b$10$nWoe2DU1TrHMX5jEtO/2Xe8Y6vPJjCJzbTkikvlGdWSgVDgjD3JqW,Steve,Pai,5190981234,steve@yahoo.com
-3,test3,$2b$10$bMZ6/pzRhmxmKgas.QVuJOvn4LozHr0IlGvzb/S84bu/dI8aSM4P.,Robert,Li,1234567890,robert@gmail.com
+0,test0,password0,Bob,Ack,6049872509,bob@gmail.com
+1,test1,password1,Joe,Bad,5493029283,joe@gmail.com
+2,test2,password2,Steve,Pai,5190981234,steve@yahoo.com
+3,test3,password3,Robert,Li,1234567890,robert@gmail.com
