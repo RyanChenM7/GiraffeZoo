@@ -39,6 +39,25 @@ listing_schema = {
     "comment": "VARCHAR(2000), ",
 }
 
+listing_types = {
+    "id": int,
+    "user_id": int,
+    "address": str,
+    "city": str,
+    "province": str,
+    "rooms": int,
+    "bathrooms": int,
+    "feet": int,
+    "heating": int,
+    "water": int,
+    "hydro": int,
+    "type": str,
+    "parking": int,
+    "price": int,
+    "months": int,
+    "comment": str,
+}
+
 def format_user(user):
     for key in user_schema.keys():
         if key not in user:
@@ -203,7 +222,11 @@ class RentalsDB:
         for key, value in request.items():
             if key in ["id", "user_id", None]:
                 continue
-            pairs += f"{key} = {value}, "
+
+            if listing_types[key] == str:
+                pairs += f"{key} = '{value}', "
+            else:
+                pairs += f"{key} = {value}, "
 
         update = f"""
             UPDATE listings
