@@ -144,7 +144,7 @@ class RentalsDB:
         }
         """
         id = request["listingid"]
-        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.id = '{id}'")
+        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.id = {id}")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
