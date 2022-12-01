@@ -4,9 +4,6 @@ import type { PageServerLoad } from './$types';
 import {createTransport} from 'nodemailer';
  
 export const load: PageServerLoad = async ({ request, locals, cookies }: any) => {
-    if (!locals.isAuth) {
-        throw redirect(307, '/login');
-    }
 };
 
 /** @type {import('./$types').Actions} */

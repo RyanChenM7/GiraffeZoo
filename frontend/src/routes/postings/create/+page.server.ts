@@ -1,5 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
+import { writeFileSync } from 'fs';
 import type { PageServerLoad } from './$types';
  
 export const load: PageServerLoad = async ({ request, locals, cookies }: any) => {
@@ -31,6 +32,7 @@ export const actions = {
         const price = data.get('price');
         const months = data.get('months');
         const comment = data.get('comment');
+        
         let url = BACKEND_FLASK_HOST + 'createListing';
         const body = {
             user_id: user_id,

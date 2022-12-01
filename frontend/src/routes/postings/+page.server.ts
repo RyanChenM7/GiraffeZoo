@@ -31,6 +31,7 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
     )
     
     let data: any = await response.json().then(data => {
+        console.log("FETCHING LISTNG BY ID:", data)
         return data.data
     });
     return data

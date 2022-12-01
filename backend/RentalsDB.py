@@ -237,6 +237,7 @@ class RentalsDB:
         """
 
         self.cursor.execute(update)
+        self.conn.commit()
 
         return True
 
@@ -291,7 +292,6 @@ class RentalsDB:
         self.cursor.execute(q1)
         q2 = f"DELETE FROM users WHERE username='{user}'"
         self.cursor.execute(q2)
-
         self.conn.commit()
 
         return 1

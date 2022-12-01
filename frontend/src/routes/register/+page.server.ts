@@ -23,12 +23,12 @@ export const actions = {
         let url = BACKEND_FLASK_HOST + 'createAccount';
         
         const body: any = {
-            email: email,
+            user: username,
             pass: password,
             first: fname,
             last: lname,
             phone: phone,
-            user: username
+            email: email
         }
 
         const header = {
@@ -44,7 +44,9 @@ export const actions = {
             }
         )
         let responseData: any = await response.json().then(data => {
-            console.log("data", data)
+            if (data.message === 'Email already used!') {
+                throw redirect(307, '/register');
+            }
         });
         throw redirect(307, '/login');
     }
