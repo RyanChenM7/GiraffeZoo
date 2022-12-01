@@ -120,11 +120,19 @@ def fetchListingsById():
     return {"data": data}, 200
 
 
-@app.route("/fetchListingsByListingId", methods=["POST"])
+@app.route("/fetchListingByListingId", methods=["POST"])
 def fetchListingsById():
     req = request.get_json()
     data = db.get_listings_by_listing_id(req)
     return {"data": data}, 200
+
+
+@app.route("/updateListingByListingId", methods=["POST"])
+def fetchListingsById():
+    req = request.get_json()
+    data = db.update_listing_by_listing_id(req)
+    return {"data": data}, 200
+
 
 if __name__ == '__main__':
     app.run()
