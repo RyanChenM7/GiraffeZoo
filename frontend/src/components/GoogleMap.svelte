@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
     export let listingsData: ListingType[];
     export let mapId: string;
-    console.log("listings Data ", listingsData)
+    //console.log("listings Data ", listingsData)
     let map: google.maps.Map;
     const center: google.maps.LatLngLiteral = {lat: 43.48144741242103, lng: -80.52660029564518};
     const coords = [

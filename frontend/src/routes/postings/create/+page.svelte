@@ -27,6 +27,6 @@
         <input name="price" type="number" placeholder="price" class="form-control waterloo-rental-input" required>
         <input name="months" type="number" placeholder="months" class="form-control waterloo-rental-input" required>
         <input name="comment" type="text" placeholder="comment" class="form-control waterloo-rental-input" required>
-        <button type="submit" class="btn btn-primary">Edit listing</button>
+        <button type="submit" class="btn btn-primary">Create listing</button>
     </form>
 </div>

@@ -64,6 +64,6 @@ export const actions = {
         let responseData: any = await response.json().then(data => {
             console.log("data", data)
         });
-        return {"message":"done"}
+        throw redirect(307, '/postings');
     }
 };

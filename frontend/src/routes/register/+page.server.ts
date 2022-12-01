@@ -46,6 +46,6 @@ export const actions = {
         let responseData: any = await response.json().then(data => {
             console.log("data", data)
         });
-        throw redirect(307, '/');
+        throw redirect(307, '/login');
     }
 };
