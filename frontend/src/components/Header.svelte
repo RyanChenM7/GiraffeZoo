@@ -37,6 +37,9 @@
                     <a class="nav-link me-auto" href="/delete">Delete Account</a>
                 </li>
             {/if}
+            <li class="nav-item active">
+                <a class="nav-link" href="/contact">Contact Us</a>
+            </li>
         </ul>
         </div>
     </nav>
