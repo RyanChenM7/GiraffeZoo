@@ -211,6 +211,8 @@ class RentalsDB:
             WHERE id = {lid} AND user_id = {uid};
         """
 
+        self.cursor.execute(update)
+
         return True
 
     def create_account(self, request):
