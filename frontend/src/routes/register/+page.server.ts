@@ -1,7 +1,6 @@
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { hash } from '../../hash_and_salt';
 
 
 export const load: PageServerLoad = async ({ params, locals }: any) => {
@@ -23,11 +22,9 @@ export const actions = {
         const lname = data.get('lname');
         let url = BACKEND_FLASK_HOST + 'createAccount';
         
-        const hashed = hash(password);
-        
         const body: any = {
             email: email,
-            pass: hashed,
+            pass: password,
             first: fname,
             last: lname,
             phone: phone,
