@@ -145,7 +145,7 @@ class RentalsDB:
 
         return data
 
-    def get_listings_by_listing_id(self, request):
+    def get_listing_by_listing_id(self, request):
         """Schema is:
         {
             "listingid": x
@@ -162,6 +162,57 @@ class RentalsDB:
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
 
         return data
+
+    def modify_listing(self, request):
+        """Schema is:
+        listing_schema = {
+            "id": "INT NOT NULL, ",
+            "user_id": "INT NOT NULL, ",
+            "address": "VARCHAR(1000) NOT NULL, ",
+            "city": "VARCHAR(300), ",
+            "province": "VARCHAR(300), ",
+            "rooms": "INT, ",
+            "bathrooms": "INT, ",
+            "feet": "INT, ",
+            "heating": "INT, ",
+            "water": "INT, ",
+            "hydro": "INT, ",
+            "type": "VARCHAR(300), ",
+            "parking": "INT, ",
+            "price": "INT, ",
+            "months": "INT, ",
+            "comment": "VARCHAR(2000), "
+        }
+        """
+        try:
+            lid = request["id"]
+            uid = request["user_id"]
+        except KeyError:
+            raise KeyError("Schema for request must contain field `id` and `user_id`!")
+        
+        existence = f"""
+            SELECT * FROM listings WHERE id = {lid} AND user_id = {uid};
+        """
+
+        exists = self.cursor.execute(existence)
+
+        if not bool(exists):
+            return False
+        
+        pairs = ""
+
+        for key, value in request.items():
+            if key in ["id", "user_id", None]:
+                continue
+            pairs += f"{key} = {value}, "
+
+        update = f"""
+            UPDATE listings
+            SET {pairs[:-2]}
+            WHERE id = {lid} AND user_id = {uid};
+        """
+
+        return True
 
     def create_account(self, request):
         """ Schema is:
