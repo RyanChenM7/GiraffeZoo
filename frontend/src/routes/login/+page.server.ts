@@ -2,10 +2,7 @@ import { error } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-
-const bcrypt = require('bcrypt');
-
-const SALTROUNDS = 10;
+import { hash } from '../../hash_and_salt';
 
 
 export const load: PageServerLoad = async ({ params, locals }: any) => {
@@ -22,10 +19,7 @@ export const actions = {
         const password = data.get('password');
         let url = BACKEND_FLASK_HOST + 'login';
 
-        let hashed;
-        bcrypt.hash(password, SALTROUNDS, function(err, hash) {
-            hashed = hash;
-        });
+        const hashed = hash(password);
 
         const body = {
             user_or_email : email,
