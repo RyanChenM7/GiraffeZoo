@@ -143,7 +143,11 @@ class RentalsDB:
             "listingid": x
         }
         """
-        id = request["listingid"]
+        try:
+            id = request["listingid"]
+        except KeyError:
+            raise KeyError("Schema for request should be {'listing_id': id}")
+
         self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.id = {id}")
         columns = [column[0] for column in self.cursor.description]
 
