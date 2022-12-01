@@ -23,7 +23,7 @@ export const actions = {
         let url = BACKEND_FLASK_HOST + 'login';
 
         let hashed;
-        bcrypt.hash(password, SALTROUNDS, function(err, hash) {
+        bcrypt.hash(password, SALTROUNDS, function(err: any, hash: any) {
             hashed = hash;
         });
 

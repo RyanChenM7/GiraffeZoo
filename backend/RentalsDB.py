@@ -184,6 +184,7 @@ class RentalsDB:
             "comment": "VARCHAR(2000), "
         }
         """
+        print("request", request)
         try:
             lid = request["id"]
             uid = request["user_id"]
