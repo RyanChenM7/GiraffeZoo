@@ -59,7 +59,7 @@ export const actions = {
         const price = data.get('price');
         const months = data.get('months');
         const comment = data.get('comment');
-        //let url = BACKEND_FLASK_HOST + 'updateListing';
+        let url = BACKEND_FLASK_HOST + 'updateListingByListingId';
         const body = {
             id: id,
             user_id: user_id,
@@ -83,17 +83,16 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
-        console.log("BODY OF EDIT BUTTON", body)
-        // const response = await fetch(url, {   
-        //         method:'POST',
-        //         headers: header,
-        //         body: JSON.stringify(body),
-        //         mode: 'cors'
-        //     }
-        // )
-        // let responseData: any = await response.json().then(data => {
-        //     console.log("data", data)
-        // });
+        const response = await fetch(url, {   
+                method:'POST',
+                headers: header,
+                body: JSON.stringify(body),
+                mode: 'cors'
+            }
+        )
+        let responseData: any = await response.json().then(data => {
+            console.log("data", data)
+        });
         return {"message":"done"}
     }
 };
