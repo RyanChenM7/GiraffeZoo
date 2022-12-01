@@ -1,7 +1,7 @@
 
 import csv
 from flaskext.mysql import MySQL
-from bcrypthash import hash, auth
+from backend.bcrypthash import hash, auth
 
 mysql = MySQL()
 
