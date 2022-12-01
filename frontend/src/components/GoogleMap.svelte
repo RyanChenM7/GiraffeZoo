@@ -3,7 +3,18 @@
     import { onMount } from 'svelte';
     export let listingsData: ListingType[];
     export let mapId: string;
-    console.log("listings Data ", listingsData)
+    //const geocoder = new google.maps.Geocoder();
+    //console.log("listings Data ", listingsData)
+    // listingsData.forEach((listing) => {
+    //     console.log("listing", listing.address)
+    //     geocoder.geocode({address: listing.address}, (results, status) => {
+    //         if (status === "OK") {
+    //             console.log(results);
+    //         } else {
+    //             alert("Geocode error: " + status);
+    //         }
+    //     } );
+    // })
     let map: google.maps.Map;
     const center: google.maps.LatLngLiteral = {lat: 43.48144741242103, lng: -80.52660029564518};
     const coords = [
@@ -21,7 +32,7 @@
         console.log("generating map...")
         map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
             center,
-            zoom: 10,
+            zoom: 13,
             mapId
         });
         coords.forEach((coord) => {
@@ -36,6 +47,8 @@
 </script>
 
 
+
+
 <!-- 
     The `defer` attribute causes the callback to execute after the full HTML
     document has been parsed. For non-blocking uses, avoiding race conditions,
@@ -43,9 +56,8 @@
     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
 -->
 
-<h3>My Google Maps Demo</h3>
 <!--The div element for the map -->
-<div id="map" style="height: 60vh;"></div>
+<div id="map" style="height: 60vh; position: fixed !important;"></div>
 
 
 

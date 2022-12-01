@@ -2,6 +2,7 @@ import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
+
 export const load: PageServerLoad = async ({ params, locals }: any) => {
     if (locals.isAuth) {
         throw redirect(307, '/');
@@ -20,14 +21,16 @@ export const actions = {
         const fname = data.get('fname');
         const lname = data.get('lname');
         let url = BACKEND_FLASK_HOST + 'createAccount';
+        
         const body: any = {
-            email: email,
+            user: username,
             pass: password,
             first: fname,
             last: lname,
             phone: phone,
-            user: username
+            email: email
         }
+
         const header = {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -41,8 +44,10 @@ export const actions = {
             }
         )
         let responseData: any = await response.json().then(data => {
-            console.log("data", data)
+            if (data.message === 'Email already used!') {
+                throw redirect(307, '/register');
+            }
         });
-        throw redirect(307, '/');
+        throw redirect(307, '/login');
     }
 };

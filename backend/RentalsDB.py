@@ -1,6 +1,7 @@
 
 import csv
 from flaskext.mysql import MySQL
+from backend.bcrypthash import hash, auth
 
 mysql = MySQL()
 
@@ -8,18 +9,20 @@ PATH = "backend/data/"
 
 user_schema = {
     "id": "INT NOT NULL,",
-    "username": "VARCHAR(500),",
-    "password": "VARCHAR(500),",
+    "username": "VARCHAR(500) NOT NULL,",
+    "password": "VARCHAR(500) NOT NULL,",  # Hashed password
+    # "salt": "VARCHAR(500) NOT NULL,",  # Password hash salt
+    # "iterations": "INT NOT NULL,",  # Password hash iterations
     "fname": "VARCHAR(100),",
     "lname": "VARCHAR(100),",
     "phone": "VARCHAR(20),",
-    "email": "VARCHAR(500),",
+    "email": "VARCHAR(500) NOT NULL,",
 }
 
 listing_schema = {
     "id": "INT NOT NULL, ",
     "user_id": "INT NOT NULL, ",
-    "address": "VARCHAR(1000), ",
+    "address": "VARCHAR(1000) NOT NULL, ",
     "city": "VARCHAR(300), ",
     "province": "VARCHAR(300), ",
     "rooms": "INT, ",
@@ -35,6 +38,27 @@ listing_schema = {
     "comment": "VARCHAR(2000), ",
 }
 
+listing_types = {
+    "id": int,
+    "user_id": int,
+    "address": str,
+    "city": str,
+    "province": str,
+    "rooms": int,
+    "bathrooms": int,
+    "feet": int,
+    "heating": int,
+    "water": int,
+    "hydro": int,
+    "type": str,
+    "parking": int,
+    "price": int,
+    "months": int,
+    "comment": str,
+}
+
+
+@staticmethod
 def format_user(user):
     for key in user_schema.keys():
         if key not in user:
@@ -129,13 +153,93 @@ class RentalsDB:
             "user": w
         }
         """
-        user = request["user"]
+        try:
+            user = request["user"]
+        except:
+            raise KeyError("Schema for request should be {'user': id}")
+
         self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.user_id = '{user}'")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
 
         return data
+
+    def get_listing_by_listing_id(self, request):
+        """Schema is:
+        {
+            "listingid": x
+        }
+        """
+        try:
+            id = request["listing_id"]
+        except KeyError:
+            raise KeyError("Schema for request should be {'listing_id': id}")
+
+        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.id = {id}")
+        columns = [column[0] for column in self.cursor.description]
+
+        data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
+
+        return data
+
+    def modify_listing(self, request):
+        """Schema is:
+        listing_schema = {
+            "id": "INT NOT NULL, ",
+            "user_id": "INT NOT NULL, ",
+            "address": "VARCHAR(1000) NOT NULL, ",
+            "city": "VARCHAR(300), ",
+            "province": "VARCHAR(300), ",
+            "rooms": "INT, ",
+            "bathrooms": "INT, ",
+            "feet": "INT, ",
+            "heating": "INT, ",
+            "water": "INT, ",
+            "hydro": "INT, ",
+            "type": "VARCHAR(300), ",
+            "parking": "INT, ",
+            "price": "INT, ",
+            "months": "INT, ",
+            "comment": "VARCHAR(2000), "
+        }
+        """
+        print("request", request)
+        try:
+            lid = request["id"]
+            uid = request["user_id"]
+        except KeyError:
+            raise KeyError("Schema for request must contain field `id` and `user_id`!")
+        
+        existence = f"""
+            SELECT * FROM listings WHERE id = {lid} AND user_id = {uid};
+        """
+
+        exists = self.cursor.execute(existence)
+        if not bool(exists):
+            return False
+        
+        pairs = ""
+
+        for key, value in request.items():
+            if key in ["id", "user_id", None]:
+                continue
+
+            if listing_types[key] == str:
+                pairs += f"{key} = '{value}', "
+            else:
+                pairs += f"{key} = {value}, "
+
+        update = f"""
+            UPDATE listings
+            SET {pairs[:-2]}
+            WHERE id = {lid} AND user_id = {uid};
+        """
+
+        self.cursor.execute(update)
+        self.conn.commit()
+
+        return True
 
     def create_account(self, request):
         """ Schema is:
@@ -150,6 +254,7 @@ class RentalsDB:
         """
         user = request["user"]
         email = request["email"]
+        request["pass"] = hash(request["pass"])
 
         self.cursor.execute(f"SELECT * FROM users WHERE username='{user}'")
         if self.cursor.fetchall():
@@ -187,7 +292,6 @@ class RentalsDB:
         self.cursor.execute(q1)
         q2 = f"DELETE FROM users WHERE username='{user}'"
         self.cursor.execute(q2)
-
         self.conn.commit()
 
         return 1
@@ -233,8 +337,18 @@ class RentalsDB:
 
         first = request["user_or_email"]
         pwd = request["pass"]
+        
         exist = self.cursor.execute(f"SELECT * FROM users WHERE username='{first}' OR email='{first}'")
-        res = self.cursor.execute(f"SELECT * FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
-        self.cursor.execute(f"SELECT id FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        if not bool(exist):
+            return (0, 0, -1)
+
+        self.cursor.execute(f"SELECT password FROM users WHERE (username='{first}' OR email='{first}')")
+        hash = self.cursor.fetchone()[0]
+        correct = auth(pwd, hash)
+        if not correct:
+            return (1, 0, -1)
+
+        self.cursor.execute(f"SELECT id FROM users WHERE (username='{first}' OR email='{first}')")
         user = self.cursor.fetchone()
-        return (bool(exist),bool(res), user)
+        print("user", user)
+        return (1, 1, user)

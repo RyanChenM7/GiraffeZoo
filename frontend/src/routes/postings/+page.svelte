@@ -22,11 +22,11 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-10">
                 <p>My Listings</p>
                 <AllListings listingsData={data.content} allowEdit={true}/>
             </div>
-            <div class="col-6">
+            <div class="col-2">
                 <div class="row">
                     <a class="nav-link waterloo-rental-link" href="postings/create">Create Listing</a>
                     <a class="nav-link  waterloo-rental-link" href="postings/delete">Delete a Listing</a>

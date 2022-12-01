@@ -22,7 +22,6 @@ export const actions = {
             'Access-Control-Allow-Origin': '*',
             Auth: 'dummyauth'
         }
-        console.log("body", body)
         const response = await fetch(url, {   
                 method:'POST',
                 headers: header,
@@ -33,6 +32,6 @@ export const actions = {
         let responseData: any = await response.json().then(data => {
             console.log("data", data)
         });
-        return {"message":"done"}
+        throw redirect(307, '/logout');
     }
 };

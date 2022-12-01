@@ -1,17 +1,17 @@
-4,test4,password4,Dido,Hagano,2264441896,dhagano@gmail.com
-5,test5,password5,Jadyn,Candela,2264750261, jcandela@hotmail.com
-6,test6,password6,Antonio,Erika,5197657847, erika_antonio@outlook.com
-7,test7,password7,Kamil,Steph,6472064708,StephKamil@gmail.com
-8,test8,password8,Ana,Sigrid,9059761022,SigridA@hotmail.com
-9,test9,password9,Lucia,Shel,2898471495,Lucia@gmail.com
-10,test10,password10,Fannar,Ghulam,4372037654,Fannar@gmail.com
-11,test11,password11,Bhavana,Milka,5199415346,Bhavana@gmail.com
-12,test12,password12,Plato,Erranum,2265571202,Plato@gmail.com
-13,test13,password13,Torston,Heard,5196409346,Torston@gmail.com
-14,test14,password14,Juda,Damyan,2891637159,Juda@gmail.com
-15,test15,password15,Cristen,Naveen,4379224906,Cristen@gmail.com
-16,test16,password16,Rosanna,Haytham,5199708161,Rosanna@gmail.com
-17,test17,password17,Julia,Smith,2267253549,Julia@gmail.com
-18,test18,password18,Tajana,Almat,2264888729,Tajana@gmail.com
-19,test19,password19,Lenart,Helge,5197847478,Lenart@gmail.com
-20,test20,password20,Basmath,Ludo,4168985488,Basmath@gmail.com
+4,test4,$2b$10$48amSaaj6sE8Qt4iPBSz0DYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Dido,Hagano,2264441896,dhagano@gmail.com
+5,test5,$2b$10$W4at2V62BDqeQQCHfxEuDYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Jadyn,Candela,2264750261, jcandela@hotmail.com
+6,test6,$2b$10$iMlTTEfny43QjX9R0BkeJrqpfX1sNcLasegwEQRrgrguZK,Antonio,Erika,5197657847, erika_antonio@outlook.com
+7,test7,$2b$10$t62d2h0VzliLvkdn83nlKjODYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Kamil,Steph,6472064708,StephKamil@gmail.com
+8,test8,$2b$10$hsFENqPgsG8lHHf46Cd4rqpfX1sNcLOrM223adDSkUuZK,Ana,Sigrid,9059761022,SigridA@hotmail.com
+9,test9,$2b$10$mrtK7gTUZQqNgwxPlv66DYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Lucia,Shel,2898471495,Lucia@gmail.com
+10,test10,$2b$10$9sEc6dh9piCXi94cfqTAODYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Fannar,Ghulam,4372037654,Fannar@gmail.com
+11,test11,$2b$10$ZXT1vLxDoEJgxlDR7PNvV9KjODYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Bhavana,Milka,5199415346,Bhavana@gmail.com
+12,test12,$2b$10$rLUa0TSjaNS1E7YZO0y8YZz4JrqpfX1sNcLOrM2GERujSkUuZK,Plato,Erranum,2265571202,Plato@gmail.com
+13,test13,$2b$10$ywq508LrvL6QiXA4rMYFYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Torston,Heard,5196409346,Torston@gmail.com
+14,test14,$2b$10$6nAKMYU6cxhK8k53R4ntDYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Juda,Damyan,2891637159,Juda@gmail.com
+15,test15,$2b$10$UAA69IMpwmG6mOezEO02YZz4JrqpfX1sNcLOrM2GERujSkUuZK,Cristen,Naveen,4379224906,Cristen@gmail.com
+16,test16,$2b$10$42Td1L3ha4PhZShGuBtmuV9KjODYZfdffziMlTTEfny43QjX9R0Bke,Rosanna,Haytham,5199708161,Rosanna@gmail.com
+17,test17,$2b$10$gsQKDJNqt9E9OFi1M8RDDYZz4JrqpW4at2V62BDqeQQCHfxEu,Julia,Smith,2267253549,Julia@gmail.com
+18,test18,$2b$10$XhsfIyOViYvxGkFmnGnXODYZz4JrqpfX1sNcLOrM2GERujSkUuZK,Tajana,Almat,2264888729,Tajana@gmail.com
+19,test19,$2b$10$VNZGYmUkFAXqUsoA2ifnYZz4JrqpfX1sdfasdasGERujSkWEFs,Lenart,Helge,5197847478,Lenart@gmail.com
+20,test20,$2b$10$wt1nT8vUWHjELh7ooEXsYZz4JrqpfN8amSaaj6sE8Qt4iPBSz0,Basmath,Ludo,4168985488,Basmath@gmail.com
