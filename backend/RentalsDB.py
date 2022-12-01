@@ -336,15 +336,14 @@ class RentalsDB:
         """
 
         first = request["user_or_email"]
-        hash = request["pass"]
+        pwd = request["pass"]
         
         exist = self.cursor.execute(f"SELECT * FROM users WHERE username='{first}' OR email='{first}'")
         if not bool(exist):
             return (0, 0, -1)
 
         self.cursor.execute(f"SELECT password FROM users WHERE (username='{first}' OR email='{first}')")
-        pwd = self.cursor.fetchone()[0]
-        print("pwd", pwd)
+        hash = self.cursor.fetchone()[0]
         correct = auth(pwd, hash)
         if not correct:
             return (1, 0, -1)
