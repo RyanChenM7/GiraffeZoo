@@ -2,7 +2,6 @@ import { error } from '@sveltejs/kit';
 import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { hash } from '../../hash_and_salt';
 
 
 export const load: PageServerLoad = async ({ params, locals }: any) => {
@@ -19,11 +18,9 @@ export const actions = {
         const password = data.get('password');
         let url = BACKEND_FLASK_HOST + 'login';
 
-        const hashed = hash(password);
-
         const body = {
             user_or_email : email,
-            pass : hashed
+            pass : password
         }
         const header = {
             'Content-Type': 'application/json',

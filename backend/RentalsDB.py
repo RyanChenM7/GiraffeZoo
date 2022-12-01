@@ -204,6 +204,7 @@ class RentalsDB:
             "comment": "VARCHAR(2000), "
         }
         """
+        print("request", request)
         try:
             lid = request["id"]
             uid = request["user_id"]
@@ -341,7 +342,9 @@ class RentalsDB:
         if not bool(exist):
             return (0, 0, -1)
 
-        pwd = self.cursor.execute(f"SELECT password FROM users WHERE (username='{first}' OR email='{first}')")[0]
+        self.cursor.execute(f"SELECT password FROM users WHERE (username='{first}' OR email='{first}')")
+        pwd = self.cursor.fetchone()[0]
+        print("pwd", pwd)
         correct = auth(pwd, hash)
         if not correct:
             return (1, 0, -1)
