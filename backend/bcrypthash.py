@@ -8,6 +8,7 @@ def hash(password: str) -> str:
     hashed = bcrypt.hashpw(bytes, salt)
     return hashed.decode('utf-8')
 
+
 def auth(pwd: str, hash: str) -> bool:
     bytes = pwd.encode('utf-8')
 
@@ -21,6 +22,6 @@ def auth(pwd: str, hash: str) -> bool:
 # print(hash("password2"))
 # print(hash("password3"))
 
-p = "password123"
-print(hash(p))
-print(auth(p, hash(p)))
+# p = "password123 awerr3w"
+# print(hash(p))
+# print(auth(p, hash(p)))
