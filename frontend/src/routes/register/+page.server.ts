@@ -2,6 +2,10 @@ import { BACKEND_FLASK_HOST } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
+const bcrypt = require('bcrypt');
+
+const SALTROUNDS = 10;
+
 export const load: PageServerLoad = async ({ params, locals }: any) => {
     if (locals.isAuth) {
         throw redirect(307, '/');
@@ -20,14 +24,21 @@ export const actions = {
         const fname = data.get('fname');
         const lname = data.get('lname');
         let url = BACKEND_FLASK_HOST + 'createAccount';
+        
+        let hashed;
+        bcrypt.hash(password, SALTROUNDS, function(err, hash) {
+            hashed = hash;
+        });
+        
         const body: any = {
             email: email,
-            pass: password,
+            pass: hashed,
             first: fname,
             last: lname,
             phone: phone,
             user: username
         }
+
         const header = {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
