@@ -196,7 +196,6 @@ class RentalsDB:
         """
 
         exists = self.cursor.execute(existence)
-
         if not bool(exists):
             return False
         
@@ -212,6 +211,8 @@ class RentalsDB:
             SET {pairs[:-2]}
             WHERE id = {lid} AND user_id = {uid};
         """
+
+        self.cursor.execute(update)
 
         return True
 
