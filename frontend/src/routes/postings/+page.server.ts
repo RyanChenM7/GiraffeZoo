@@ -34,5 +34,6 @@ export async function getListings(pagination: number = 0, pageLimit: number = 50
     let data: any = await response.json().then(data => {
         return data.data
     });
+    console.log("fetched data is: ", data)
     return data
 }

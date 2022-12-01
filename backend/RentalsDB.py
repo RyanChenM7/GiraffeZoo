@@ -46,7 +46,7 @@ class RentalsDB:
     def __init__(self, app, user_schema=user_schema, listing_schema=listing_schema):
         self.app = app
         app.config['MYSQL_DATABASE_USER'] = 'root'
-        app.config['MYSQL_DATABASE_PASSWORD'] = ''
+        app.config['MYSQL_DATABASE_PASSWORD'] = 'password123'
         app.config['MYSQL_DATABASE_DB'] = 'testDB'
         app.config['MYSQL_DATABASE_HOST'] = 'localhost'
         mysql.init_app(app)
@@ -117,11 +117,10 @@ class RentalsDB:
         self.conn.commit()
 
     def get_listings(self):
-        self.cursor.execute("SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id LIMIT 20")
+        self.cursor.execute("SELECT * FROM listings AS l LEFT JOIN (SELECT id as uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid LIMIT 20")
         columns = [column[0] for column in self.cursor.description]
-
-        data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
-
+        raw_data = self.cursor.fetchall()
+        data = [dict(zip(columns, row)) for row in raw_data]
         return data
 
     def get_listings_by_id(self, request):
@@ -131,7 +130,7 @@ class RentalsDB:
         }
         """
         user = request["user"]
-        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id, fname, lname, phone, email FROM users) AS u ON l.user_id = u.id WHERE l.user_id = '{user}'")
+        self.cursor.execute(f"SELECT * FROM listings AS l LEFT JOIN (SELECT id AS uid, fname, lname, phone, email FROM users) AS u ON l.user_id = u.uid WHERE l.user_id = '{user}'")
         columns = [column[0] for column in self.cursor.description]
 
         data = [dict(zip(columns, row)) for row in self.cursor.fetchall()]
