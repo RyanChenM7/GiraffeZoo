@@ -105,7 +105,6 @@ def login():
     res = ret[1]
     user = ret[2]
 
-
     if not exist:
         resp = make_response({"status": "ERROR", "message": "Username/Email Doesn't Exist!"}, 400)
     if not res:
@@ -120,6 +119,12 @@ def fetchListingsById():
     data = db.get_listings_by_id(req)
     return {"data": data}, 200
 
+
+@app.route("/fetchListingsByListingId", methods=["POST"])
+def fetchListingsById():
+    req = request.get_json()
+    data = db.get_listings_by_listing_id(req)
+    return {"data": data}, 200
 
 if __name__ == '__main__':
     app.run()
