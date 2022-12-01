@@ -195,7 +195,6 @@ class RentalsDB:
         """
 
         exists = self.cursor.execute(existence)
-
         if not bool(exists):
             return False
         

@@ -128,10 +128,16 @@ def fetchListingByListingId():
 
 
 @app.route("/updateListingByListingId", methods=["POST"])
-def fetchListingsById():
+def updateListingByListingId():
     req = request.get_json()
-    data = db.modify_listing(req)
-    return {"data": data}, 200
+    res = db.modify_listing(req)
+
+    if not res:
+        resp = make_response({"status": "ERROR", "message": "Listing does not exist under specified user!"}, 400)
+    else:
+        resp = make_response({"status": "SUCCESS!"}, 200)
+
+    return resp
 
 
 if __name__ == '__main__':
