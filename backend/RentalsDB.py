@@ -348,6 +348,7 @@ class RentalsDB:
         if not correct:
             return (1, 0, -1)
 
-        self.cursor.execute(f"SELECT id FROM users WHERE password='{pwd}' AND (username='{first}' OR email='{first}')")
+        self.cursor.execute(f"SELECT id FROM users WHERE (username='{first}' OR email='{first}')")
         user = self.cursor.fetchone()
+        print("user", user)
         return (1, 1, user)
